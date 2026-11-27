@@ -1,5 +1,5 @@
 extends GutTest
-## Misión 4 dentro del marco: fases, cuadrícula, tabla y nota.
+## Cuadrícula editable de la misión 4 (para el modo examen) dentro del marco.
 
 const DIR: String = "user://test_reports"
 const SEED: int = 123456
@@ -12,7 +12,11 @@ func _open(mission_path: String) -> void:
 	GameState.student_name = "Anna Vidal"
 	GameState.pending_seed = SEED
 	shell = (load("res://scenes/mission/mission_shell.tscn") as PackedScene).instantiate() as MissionShell
-	shell.mission = load(mission_path) as MissionData
+	# La cuadrícula editable ya no es la escena de las salas (ahora es la sala recreativa), pero se
+	# conserva para el modo examen: se prueba con una copia de los datos de la sala.
+	var data: MissionData = (load(mission_path) as MissionData).duplicate()
+	data.content_scene = "res://scenes/missions/m4_scheduler/gantt_mission.tscn"
+	shell.mission = data
 	shell.reports_dir = DIR
 	add_child_autofree(shell)
 	await wait_physics_frames(1)

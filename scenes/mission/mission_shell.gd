@@ -61,6 +61,10 @@ func _ready() -> void:
 	_title.text = mission.title_key
 	content = (load(mission.content_scene) as PackedScene).instantiate() as MissionContent
 	content.configure(mission.params)
+	content.feedback.connect(_set_feedback)
+	content.check_enabled.connect(func(enabled: bool) -> void:
+		_check.disabled = not enabled
+		_hand_in.disabled = not enabled)
 	_host.add_child(content)
 	_check.pressed.connect(check)
 	_hand_in.pressed.connect(hand_in)
@@ -101,9 +105,11 @@ func seed_for(p: Phase) -> int:
 func start_phase(p: Phase) -> void:
 	phase = p
 	_hint_index = 0
-	content.setup(p, seed_for(p))
 	_set_feedback(tr(INTRO_KEYS[p]))
 	_check.visible = p != Phase.EXAMPLE
+	_check.disabled = false
+	_hand_in.disabled = false
+	content.setup(p, seed_for(p))
 	_hand_in.visible = p == Phase.SOLO
 	_next.visible = p != Phase.SOLO
 	_next.disabled = p == Phase.GUIDED
@@ -120,10 +126,10 @@ func next_phase() -> void:
 
 
 func check() -> void:
-	if phase == Phase.EXAMPLE:
+	if phase == Phase.EXAMPLE or _check.disabled:
 		return
 	var r: ChallengeResult = content.check()
-	if r.is_perfect():
+	if r.is_perfect() or (phase == Phase.SOLO and not r.can_improve):
 		if phase == Phase.SOLO:
 			finish(r)
 		else:
@@ -142,7 +148,7 @@ func check() -> void:
 
 ## Entrega lo que haya, aunque no esté bien del todo.
 func hand_in() -> void:
-	if phase != Phase.SOLO:
+	if phase != Phase.SOLO or _hand_in.disabled:
 		return
 	var r: ChallengeResult = content.check()
 	if not r.is_perfect():

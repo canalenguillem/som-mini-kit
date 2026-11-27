@@ -40,11 +40,12 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] Cuadrícula del libro (tocar o arrastrar por la fila; F y W automáticas) y tabla Inicio/Fin/Respuesta/Servicio/Espera con medias truncadas
 - [x] Mensajes de fallo precisos («En el ciclo 3 le tocaba a P2, no a P1» + por qué), tabla con error arrastrado
 - [x] Seis salas con su nota: estados, FIFO, Round Robin, Round Robin con E/S, SJF, SRT; tres fases, chuleta y resultado
+- [x] Rehecha como **sala recreativa** tras la primera prueba de Guillem (máquina = CPU, jugadores con fichas, decisiones al momento, cuadrícula automática, tabla corta al final; medias como fracción)
 - [ ] **Parar aquí: Guillem la prueba con alumnos** antes de seguir
 
 ### Qué probar (M2)
-1. ¿Se entiende la cuadrícula sin explicación? ¿Es cómodo marcar con ratón y en pantalla táctil (tocar y arrastrar)?
-2. Ejemplo animado: ¿la velocidad va bien? (`reveal_interval` en `gantt_mission.tscn`, 0,8 s por ciclo).
+1. Sala recreativa: ¿se entiende qué hay que tocar? ¿Engancha más que la cuadrícula? ¿Se ve la relación con la cuadrícula del libro que se dibuja debajo?
+2. Ritmo: `step_interval` (0,45 s por ciclo) y `example_pause` (1,6 s en cada decisión del ejemplo) en `arcade_room.tscn`. ¿La barra de paciencia (6 ciclos) se entiende?
 3. ¿Los mensajes de fallo ayudan? (ciclo y motivo; +1 del servicio; E/S en la espera; medias truncadas).
 4. ¿Cuánto tarda cada sala? Objetivo: 5–8 min por sala.
 5. Tamaño de los ejercicios: 4 procesos (3 con E/S), como mucho 16 ciclos. ¿Muy fácil o muy difícil?

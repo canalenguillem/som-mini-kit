@@ -155,3 +155,18 @@ func test_las_medias_se_pueden_escribir_como_fraccion() -> void:
 	assert_eq(Scheduler.parse_hundredths("3/4/2"), -1)
 	assert_eq(Scheduler.parse_hundredths("a/4"), -1)
 	assert_eq(Scheduler.parse_hundredths("-3/4"), -1)
+
+
+func test_ciclos_de_decision() -> void:
+	# Ejemplo 1 (FIFO): decide en el 9 (D o E) y en el 13 no (solo queda E).
+	var fifo: Schedule = Scheduler.run(_data_a(), A.FIFO)
+	assert_eq(fifo.decision_cycles(), [9] as Array[int])
+	assert_eq(fifo.candidates(9), [3, 4] as Array[int])
+	# Ejemplo 5 (SRT): en el 3 llega P2 y expulsa a P1.
+	var srt: Schedule = Scheduler.run([_p("P1", 1, [7]), _p("P2", 3, [3])], A.SRT)
+	assert_eq(srt.decision_cycles(), [3] as Array[int])
+	assert_eq(srt.candidates(3), [1, 0] as Array[int])
+	# SRT con los datos A: en el 7 y el 8 llega alguien y no expulsa; también se decide.
+	var srt_a: Schedule = Scheduler.run(_data_a(), A.SRT)
+	assert_true(srt_a.decision_cycles().has(7))
+	assert_eq(srt_a.decided[6], 2)

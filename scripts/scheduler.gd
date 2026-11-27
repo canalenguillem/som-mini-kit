@@ -111,6 +111,7 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 				queue.append(running)
 				running = -1
 				reason = Reason.PREEMPTS
+		var decision: int = 2 if algorithm == Algorithm.SRT and running >= 0 and not entering.is_empty() else 0
 		# 4. Orden por lo que queda
 		if algorithm == Algorithm.SJF or algorithm == Algorithm.SRT:
 			queue = _stable_sort_by(queue, remaining)
@@ -124,6 +125,7 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 					s.ambiguous = true
 				running = queue.pop_front()
 				quantum_left = quantum
+				decision = 1
 				if reason != Reason.PREEMPTS:
 					if preempted == running:
 						reason = Reason.QUANTUM_ALONE
@@ -134,6 +136,7 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 		# Ejecuta el ciclo
 		s.timeline.append(running)
 		s.reasons.append(reason)
+		s.decided.append(decision)
 		s.needs.append(remaining[running] if running >= 0 else 0)
 		s.victims.append(victim)
 		s.victim_left.append(victim_rem)

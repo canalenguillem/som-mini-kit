@@ -10,7 +10,7 @@ extends RefCounted
 ## La cuadrícula se compara con la solución ciclo a ciclo. La tabla se corrige con «error arrastrado»:
 ## Inicio y Fin se esperan según la cuadrícula del alumno, y lo demás según sus propios Inicio y Fin.
 
-const NAMES: Array[String] = ["P1", "P2", "P3", "P4", "P5"]
+const NAMES: Array[String] = ["A", "B", "C", "D", "E"]  ## como en el libro
 const FIELDS: Array[String] = ["start", "finish", "response", "service", "wait"]
 const MEAN_FIELDS: Array[String] = ["response", "service", "wait"]
 const EXTRA_COLUMNS: int = 2  ## columnas de más, para no regalar cuándo acaba
@@ -50,6 +50,8 @@ static func generate(exercise_seed: int, config: Dictionary) -> Dictionary:
 
 ## Que el ejercicio haga pensar: alguien espera y el algoritmo se nota.
 static func _is_interesting(s: Schedule, io: bool) -> bool:
+	if s.decision_cycles().size() < 2:
+		return false  # en la sala recreativa tiene que haber algo que decidir
 	var waited: bool = false
 	for w: int in s.waits():
 		if w > 0:

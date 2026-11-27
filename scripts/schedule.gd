@@ -19,9 +19,31 @@ var needs: Array[int] = []  ## lo que le quedaba de ráfaga al de la CPU al empe
 var victims: Array[int] = []  ## SRT: proceso expulsado en cada ciclo (-1 si nadie)
 var victim_left: Array[int] = []  ## lo que le quedaba al expulsado
 var arrived: Array[Array] = []  ## procesos que llegan en cada ciclo
+## Qué decidió el planificador en cada ciclo: 0 = nada (sigue el mismo o CPU parada),
+## 1 = eligió a alguien de la cola, 2 = SRT comparó con un recién llegado y no expulsó.
+var decided: Array[int] = []
 ## Hubo algún empate que el libro no explica con palabras (mismo tiempo restante al elegir
 ## o al comparar para expulsar). El generador de ejercicios los evita.
 var ambiguous: bool = false
+
+
+## Quién podía estar en la CPU en el ciclo `cycle` (1..n): el elegido y los de la cola.
+func candidates(cycle: int) -> Array[int]:
+	var out: Array[int] = []
+	if timeline[cycle - 1] >= 0:
+		out.append(timeline[cycle - 1])
+	for i: int in queues[cycle - 1]:
+		out.append(i)
+	return out
+
+
+## Ciclos (1..n) en los que había que decidir algo entre dos o más candidatos.
+func decision_cycles() -> Array[int]:
+	var out: Array[int] = []
+	for c: int in timeline.size():
+		if decided[c] > 0 and candidates(c + 1).size() >= 2:
+			out.append(c + 1)
+	return out
 
 
 func cycles() -> int:

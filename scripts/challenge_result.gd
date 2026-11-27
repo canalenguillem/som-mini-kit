@@ -7,6 +7,9 @@ extends RefCounted
 var correct: int = 0
 var total: int = 0
 var mistakes: Array[Dictionary] = []
+## false si lo que falla ya no se puede arreglar (p. ej. una decisión tomada en una partida):
+## el marco da la misión por acabada en lugar de contar otra comprobación fallida.
+var can_improve: bool = true
 
 
 func add_mistake(key: String, args: Dictionary = {}) -> void:

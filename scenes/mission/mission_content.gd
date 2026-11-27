@@ -5,6 +5,11 @@ extends Control
 
 enum Phase { EXAMPLE, GUIDED, SOLO }
 
+## Texto para el panel de mensajes del marco (BBCode, ya traducido).
+signal feedback(text: String)
+## El contenido avisa de si ya se puede comprobar o entregar (p. ej. cuando acaba una partida).
+signal check_enabled(enabled: bool)
+
 var phase: Phase = Phase.EXAMPLE
 var exercise_seed: int = 0
 

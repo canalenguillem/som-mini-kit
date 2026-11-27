@@ -14,7 +14,7 @@ PAUSE_TITLE,Pausa,Pausa,Paused
 PAUSE_RESUME,Continuar,Continuar,Resume
 PAUSE_QUIT,Abandonar,Abandonar,Quit
 HUB_TITLE,Placa base de TORRE-7,Placa base de TORRE-7,TORRE-7 motherboard
-HUB_EMPTY,"El mapa de la placa arribarà aviat. De moment, entra a la sala del planificador (tema 4).","El mapa de la placa llegará pronto. De momento, entra en la sala del planificador (tema 4).","The motherboard map is coming soon. For now, enter the scheduler room (unit 4)."
+HUB_EMPTY,"El mapa de la placa arribarà aviat. De moment, entra a la sala recreativa del planificador (tema 4).","El mapa de la placa llegará pronto. De momento, entra en la sala recreativa del planificador (tema 4).","The motherboard map is coming soon. For now, enter the scheduler's arcade (unit 4)."
 LANG_CA,Català,Català,Català
 LANG_ES,Castellano,Castellano,Castellano
 LANG_EN,English,English,English
@@ -64,11 +64,11 @@ BIN_BIT_SHOULD_BE_ON,El {weight} cap en el que queda ({rest}): encén-lo.,El {we
 BIN_BIT_SHOULD_BE_OFF,El {weight} no cap en el que queda ({rest}): apaga'l.,El {weight} no cabe en lo que queda ({rest}): apágalo.,{weight} doesn't fit in what's left ({rest}): switch it off.
 CHEAT_BINARY_TITLE,Xuleta: de decimal a binari,Chuleta: de decimal a binario,Cheat sheet: decimal to binary
 CHEAT_BINARY_BODY,"[b]Pesos d'un byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Mètode[/b]\n1. Comença pel 128 i ves cap a la dreta.\n2. Si el pes cap en el que queda, posa un 1 i resta'l.\n3. Si no hi cap, posa un 0 i passa al següent.\n\n[b]Comprovació de volta[/b]: suma els pesos dels 1. Ha de donar el número.\nExemple: 200 = 128 + 64 + 8 → 11001000","[b]Pesos de un byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Método[/b]\n1. Empieza por el 128 y ve hacia la derecha.\n2. Si el peso cabe en lo que queda, pon un 1 y réstalo.\n3. Si no cabe, pon un 0 y pasa al siguiente.\n\n[b]Comprobación de vuelta[/b]: suma los pesos de los 1. Tiene que dar el número.\nEjemplo: 200 = 128 + 64 + 8 → 11001000","[b]Weights of a byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Method[/b]\n1. Start at 128 and move right.\n2. If the weight fits in what's left, write 1 and subtract it.\n3. If it doesn't fit, write 0 and move on.\n\n[b]Check back[/b]: add up the weights of the 1s. It must give the number.\nExample: 200 = 128 + 64 + 8 → 11001000"
-M4_FIFO_TITLE,Sala del planificador: FIFO,Sala del planificador: FIFO,Scheduler room: FIFO
-M4_RR_TITLE,Sala del planificador: Round Robin,Sala del planificador: Round Robin,Scheduler room: Round Robin
-M4_RR_IO_TITLE,Sala del planificador: Round Robin amb E/S,Sala del planificador: Round Robin con E/S,Scheduler room: Round Robin with I/O
-M4_SJF_TITLE,Sala del planificador: SJF,Sala del planificador: SJF,Scheduler room: SJF
-M4_SRT_TITLE,Sala del planificador: SRT,Sala del planificador: SRT,Scheduler room: SRT
+M4_FIFO_TITLE,Sala recreativa: FIFO,Sala recreativa: FIFO,Arcade: FIFO
+M4_RR_TITLE,Sala recreativa: Round Robin,Sala recreativa: Round Robin,Arcade: Round Robin
+M4_RR_IO_TITLE,Sala recreativa: Round Robin amb E/S,Sala recreativa: Round Robin con E/S,Arcade: Round Robin with I/O
+M4_SJF_TITLE,Sala recreativa: SJF,Sala recreativa: SJF,Arcade: SJF
+M4_SRT_TITLE,Sala recreativa: SRT,Sala recreativa: SRT,Arcade: SRT
 COL_PROCESS,Procés,Proceso,Process
 COL_ARRIVAL,Arribada,Llegada,Arrival
 COL_CPU,CPU,CPU,CPU
@@ -164,3 +164,23 @@ ST_HINT_2,"Si el procés espera alguna cosa (disc, teclat, xarxa), és Bloquejat
 CHEAT_T4_STATES_TITLE,Xuleta: estats del procés,Chuleta: estados del proceso,Cheat sheet: process states
 CHEAT_T4_STATES_BODY,"[b]Nou[/b]: s'acaba de crear.\n[b]Preparat[/b]: a punt, esperant torn de CPU (a la cua).\n[b]En execució[/b]: té la CPU. És l'únic estat en què el procés avança.\n[b]Bloquejat[/b]: espera alguna cosa (disc, teclat, xarxa). No vol CPU.\n[b]Acabat[/b]: ha acabat; el sistema allibera els seus recursos.\n\n[b]Les sis fletxes[/b]\nNou → Preparat: el sistema l'admet\nPreparat → En execució: el planificador el tria\nEn execució → Preparat: fi del quantum\nEn execució → Bloquejat: demana E/S\nBloquejat → Preparat: l'E/S acaba\nEn execució → Acabat: acaba\n\n[b]Compte![/b] De Bloquejat mai no es passa directe a En execució.","[b]Nuevo[/b]: se acaba de crear.\n[b]Preparado[/b]: listo, esperando turno de CPU (en la cola).\n[b]En ejecución[/b]: tiene la CPU. Es el único estado en el que el proceso avanza.\n[b]Bloqueado[/b]: espera algo (disco, teclado, red). No quiere CPU.\n[b]Terminado[/b]: ha terminado; el sistema libera sus recursos.\n\n[b]Las seis flechas[/b]\nNuevo → Preparado: el sistema lo admite\nPreparado → En ejecución: lo elige el planificador\nEn ejecución → Preparado: fin del quantum\nEn ejecución → Bloqueado: pide E/S\nBloqueado → Preparado: la E/S termina\nEn ejecución → Terminado: termina\n\n[b]¡Ojo![/b] De Bloqueado nunca se pasa directo a En ejecución.","[b]New[/b]: just created.\n[b]Ready[/b]: waiting for a CPU turn (in the queue).\n[b]Running[/b]: has the CPU. The only state where the process makes progress.\n[b]Blocked[/b]: waiting for something (disk, keyboard, network). Doesn't want the CPU.\n[b]Terminated[/b]: finished; the system frees its resources.\n\n[b]The six arrows[/b]\nNew → Ready: the system admits it\nReady → Running: the scheduler picks it\nRunning → Ready: end of quantum\nRunning → Blocked: asks for I/O\nBlocked → Ready: the I/O finishes\nRunning → Terminated: it ends\n\n[b]Careful![/b] Blocked never goes straight to Running."
 GANTT_MEAN_TOOLTIP,Pots escriure la fracció: 3/4,Puedes escribir la fracción: 3/4,You can type the fraction: 3/4
+ARCADE_ENTRANCE,Arribaran,Llegarán,Coming
+ARCADE_MACHINE,MÀQUINA (CPU),MÁQUINA (CPU),MACHINE (CPU)
+ARCADE_SNACK,Entrepà (E/S),Bocadillo (E/S),Snack (I/O)
+ARCADE_DONE,Han acabat,Han acabado,Finished
+ARCADE_CYCLE,Cicle {cycle},Ciclo {cycle},Cycle {cycle}
+ARCADE_QUANTUM,Partida {used} de {q},Partida {used} de {q},Turn {used} of {q}
+ARCADE_ARRIVES,arriba al {cycle},llega en el {cycle},arrives at {cycle}
+ARCADE_COL_PLAYER,Jugador,Jugador,Player
+ARCADE_DECIDE,Cal decidir: toca el jugador que ha de jugar ara a la màquina.,Hay que decidir: toca al jugador que tiene que jugar ahora en la máquina.,Decision time: tap the player who should be on the machine now.
+ARCADE_OK,Molt bé! {player} a la màquina.,¡Bien! {player} a la máquina.,Nice! {player} gets the machine.
+ARCADE_WRONG,Aquest no era.,No era ese.,Not that one.
+ARCADE_PLAYS_ANYWAY,"Juga {player}, que era a qui li tocava. Aquest error compta.","Juega {player}, que era a quien le tocaba. Ese fallo cuenta.","{player} plays, since it was their turn. That mistake counts."
+ARCADE_TRY_AGAIN,Torna-ho a provar.,Prueba otra vez.,Try again.
+ARCADE_ROUND_DONE,"Fi de la partida! La graella ja està feta. Calcula el Servei i l'Espera de cada jugador i l'espera mitjana (pots escriure la fracció, 3/4). Després, «Comprovar».","¡Fin de la partida! La cuadrícula ya está hecha. Calcula el Servicio y la Espera de cada jugador y la espera media (puedes escribir la fracción, 3/4). Después, «Comprobar».","Game over! The grid is done. Work out each player's Service and Wait and the mean wait (you can type the fraction, 3/4). Then press ""Check""."
+ARCADE_EXAMPLE_DONE,Fi de la partida. Mira com surten el Servei i l'Espera de cadascú a partir de la graella.,Fin de la partida. Mira cómo salen el Servicio y la Espera de cada uno a partir de la cuadrícula.,Game over. See how each player's Service and Wait come out of the grid.
+ARCADE_WRONG_DECISIONS,Has fallat {n} de {total} decisions.,Has fallado {n} de {total} decisiones.,You got {n} of {total} decisions wrong.
+ARCADE_HINT_FIFO,"Mira la cua: en FIFO entra sempre el primer, el que va arribar abans.","Mira la cola: en FIFO entra siempre el primero, el que llegó antes.","Look at the queue: in FIFO the first one, who arrived earliest, always goes in."
+ARCADE_HINT_RR,"En Round Robin entra el primer de la cua. Qui esgota les seves partides va al final, darrere dels que acaben d'arribar.","En Round Robin entra el primero de la cola. Quien agota sus partidas va al final, detrás de los que acaban de llegar.","In Round Robin the first in the queue goes in. Whoever uses up their turn goes to the end, behind those who just arrived."
+ARCADE_HINT_SJF,Compta les fitxes: entra el que en té menys. I el que juga no s'interromp.,Cuenta las fichas: entra el que tiene menos. Y el que está jugando no se interrumpe.,Count the tokens: the one with the fewest goes in. And whoever is playing isn't interrupted.
+ARCADE_HINT_SRT,"Compara fitxes: si el que arriba en té estrictament menys que les que li queden al que juga, li pren la màquina; si no, continua el mateix.","Compara fichas: si el que llega tiene estrictamente menos que las que le quedan al que juega, le quita la máquina; si no, sigue el mismo.","Compare tokens: if the newcomer has strictly fewer than the player has left, it takes the machine; otherwise the same one carries on."
