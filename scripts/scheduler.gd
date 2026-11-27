@@ -65,6 +65,8 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 	while done < n and cycle < MAX_CYCLES:
 		cycle += 1
 		var preempted: int = -1
+		var victim: int = -1
+		var victim_rem: int = 0
 		# 1. Salidas de la CPU
 		if running >= 0:
 			if remaining[running] == 0:
@@ -104,6 +106,8 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 				if remaining[i] < remaining[shortest]:
 					shortest = i
 			if remaining[shortest] < remaining[running]:
+				victim = running
+				victim_rem = remaining[running]
 				queue.append(running)
 				running = -1
 				reason = Reason.PREEMPTS
@@ -115,6 +119,9 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 			if queue.is_empty():
 				reason = Reason.IDLE
 			else:
+				if (algorithm == Algorithm.SJF or algorithm == Algorithm.SRT) and queue.size() > 1 \
+						and remaining[queue[0]] == remaining[queue[1]]:
+					s.ambiguous = true
 				running = queue.pop_front()
 				quantum_left = quantum
 				if reason != Reason.PREEMPTS:
@@ -127,6 +134,14 @@ static func run(processes: Array, algorithm: Algorithm, quantum: int = 2) -> Sch
 		# Ejecuta el ciclo
 		s.timeline.append(running)
 		s.reasons.append(reason)
+		s.needs.append(remaining[running] if running >= 0 else 0)
+		s.victims.append(victim)
+		s.victim_left.append(victim_rem)
+		var arrivals_now: Array = []
+		for i: int in n:
+			if s.arrivals[i] == cycle:
+				arrivals_now.append(i)
+		s.arrived.append(arrivals_now)
 		s.queues.append(queue.duplicate())
 		for i: int in n:
 			if io_end[i] > 0 and cycle >= io_start[i] and cycle <= io_end[i]:

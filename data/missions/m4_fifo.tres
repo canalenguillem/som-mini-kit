@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MissionData" format=3]
+
+[ext_resource type="Script" path="res://scripts/mission_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/cheatsheets/t4_scheduling.tres" id="2"]
+[ext_resource type="Resource" path="res://data/grading/default.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = "m4_fifo"
+topic = 4
+title_key = "M4_FIFO_TITLE"
+criteria = PackedStringArray("RA1 c)", "RA4 c)")
+content_scene = "res://scenes/missions/m4_scheduler/gantt_mission.tscn"
+cheatsheet = ExtResource("2")
+weights = ExtResource("3")
+params = {
+"algorithm": "FIFO",
+"io": false
+}

@@ -9,3 +9,5 @@ extends Resource
 @export_file("*.tscn") var content_scene: String = ""  ## escena que hereda de MissionContent
 @export var cheatsheet: Cheatsheet
 @export var weights: GradingWeights
+## Ajustes que lee la escena de contenido (p. ej. {"algorithm": "RR", "io": true}).
+@export var params: Dictionary = {}

@@ -9,6 +9,11 @@ var phase: Phase = Phase.EXAMPLE
 var exercise_seed: int = 0
 
 
+## Virtual: recibe MissionData.params antes de la primera fase.
+func configure(_params: Dictionary) -> void:
+	pass
+
+
 ## Prepara el reto para una fase. EXAMPLE: resuelto y explicado; GUIDED: parte ya puesta; SOLO: en blanco.
 func setup(new_phase: Phase, new_seed: int) -> void:
 	phase = new_phase

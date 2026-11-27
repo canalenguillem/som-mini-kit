@@ -87,7 +87,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="FeedbackPanel" type="PanelContainer" parent="Margin/Box"]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="Feedback" type="RichTextLabel" parent="Margin/Box/FeedbackPanel"]

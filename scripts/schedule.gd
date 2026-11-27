@@ -15,6 +15,13 @@ var timeline: Array[int] = []  ## proceso en la CPU en cada ciclo; -1 = CPU para
 var reasons: Array[int] = []  ## Scheduler.Reason de cada ciclo
 var queues: Array[Array] = []  ## cola de preparados de cada ciclo, el primero es el que entrará
 var io_cycles: Array[PackedInt32Array] = []  ## ciclos de E/S de cada proceso
+var needs: Array[int] = []  ## lo que le quedaba de ráfaga al de la CPU al empezar cada ciclo
+var victims: Array[int] = []  ## SRT: proceso expulsado en cada ciclo (-1 si nadie)
+var victim_left: Array[int] = []  ## lo que le quedaba al expulsado
+var arrived: Array[Array] = []  ## procesos que llegan en cada ciclo
+## Hubo algún empate que el libro no explica con palabras (mismo tiempo restante al elegir
+## o al comparar para expulsar). El generador de ejercicios los evita.
+var ambiguous: bool = false
 
 
 func cycles() -> int:

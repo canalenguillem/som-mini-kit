@@ -53,6 +53,7 @@ Cada misión se compone de varios retos cortos.
 - Cerrojos encadenados: 8 interruptores con la chuleta 128-64-32-16-8-4-2-1 (leer y escribir binario), binario↔hexadecimal agrupando de 4 en 4 desde la derecha, suma binaria con acarreo, mensaje en ASCII.
 - Remate: cuánto muestra el sistema de un disco de «1 TB» y cuánto tarda una descarga (ojo bits/bytes).
 - **Corrección:** respuesta exacta por cerrojo; el juego hace la «comprobación de vuelta» a la vista. Cuentan intentos y pistas.
+- **Idea de Guillem (2026-11-27):** los 8 interruptores como **plataformas**: un personaje salta sobre cada interruptor para subirlo o bajarlo, como los pilones de un aparcamiento. La lógica (`BinaryLock`) no cambia; solo la escena. Mantener también la opción de tocar el interruptor (táctil, accesibilidad) y que el salto no se coma el tiempo de la sesión.
 
 ### M4. La sala del planificador (tema 4) — primera en implementarse
 - Calentamiento: mover un proceso por el diagrama de estados eligiendo la transición correcta para cada situación.

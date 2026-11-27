@@ -60,6 +60,7 @@ func _ready() -> void:
 	exercise_seed = GameState.take_seed()
 	_title.text = mission.title_key
 	content = (load(mission.content_scene) as PackedScene).instantiate() as MissionContent
+	content.configure(mission.params)
 	_host.add_child(content)
 	_check.pressed.connect(check)
 	_hand_in.pressed.connect(hand_in)
