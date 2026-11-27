@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ZoneData" format=3]
+
+[ext_resource type="Script" path="res://scripts/zone_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/mission_data.gd" id="2"]
+[ext_resource type="Resource" path="res://data/missions/m4_states.tres" id="m0"]
+[ext_resource type="Resource" path="res://data/missions/m4_fifo.tres" id="m1"]
+[ext_resource type="Resource" path="res://data/missions/m4_rr.tres" id="m2"]
+[ext_resource type="Resource" path="res://data/missions/m4_rr_io.tres" id="m3"]
+[ext_resource type="Resource" path="res://data/missions/m4_sjf.tres" id="m4"]
+[ext_resource type="Resource" path="res://data/missions/m4_srt.tres" id="m5"]
+
+[resource]
+script = ExtResource("1")
+topic = 4
+title_key = "ZONE_4_TITLE"
+component_key = "COMP_CPU"
+missions = Array[ExtResource("2")]([ExtResource("m0"), ExtResource("m1"), ExtResource("m2"), ExtResource("m3"), ExtResource("m4"), ExtResource("m5")])
+board_position = Vector2(0.52, 0.42)

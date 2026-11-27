@@ -28,7 +28,7 @@ scenes/
   ui/pause_menu.tscn        # pausa (acción `pause`)
   ui/online_login.tscn, online_lobby.tscn   # del kit (textos aún sin traducir: M11)
   ui/name_dialog.tscn       # pide el nombre del alumno
-  hub/hub.tscn              # placa base de TORRE-7 (zonas en M3; de momento, botón a la misión de prueba)
+  hub/hub.tscn, board_view.gd  # placa base de TORRE-7: 7 zonas (ZoneData) y panel de salas
   mission/mission_shell.tscn, mission_content.gd   # marco común y base de los retos
   missions/sample/          # misión de prueba: cerrojo binario
   missions/m4_scheduler/    # gantt_grid (cuadrícula pintable), gantt_mission, states_quiz
@@ -38,7 +38,8 @@ scenes/
 ## Marco de misión
 
 - `MissionData` (`data/missions/*.tres`): id, tema, título (clave), criterios RA, escena de contenido, `Cheatsheet`, `GradingWeights` y `params` (lo lee el contenido en `configure()`; p. ej. `{"algorithm": "RR", "io": true}`). Una misión del cuaderno puede tener varias salas: varios `MissionData` con la misma escena y distintos `params`.
-- El hub lista sus misiones desde `@export var missions: Array[MissionData]` en `hub.tscn`.
+- `ZoneData` (`data/zones/zone_N.tres`): tema, título, pieza de la placa, posición (0–1) y sus salas (`Array[MissionData]`). El hub tiene `@export var zones`.
+- `Progress` (lógica pura): mejor nota e intentos por misión en `GameState.progress` (se guarda), nota y estado de cada zona y desbloqueo en orden. `MissionShell.finish()` llama a `GameState.record_attempt()`.
 - El hub pone `GameState.current_mission` y abre `scenes/mission/mission_shell.tscn`. La semilla sale de `GameState.take_seed()` (la impuesta en `pending_seed`, o una al azar).
 - `MissionShell` crea la escena de contenido, que hereda de `MissionContent` y implementa `_build()` (con `phase` y `exercise_seed`), `check() -> ChallengeResult`, `hint_count()` y `hint(i)`.
 - Semillas por fase: ejemplo y guiado usan `ExerciseSeed.derive(semilla, "example"/"guided")`; la fase en solitario usa la semilla del intento, que es la que va al informe. Así el profesor reproduce exactamente lo que se puntuó.

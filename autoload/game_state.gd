@@ -22,6 +22,8 @@ var locale: String = DEFAULT_LOCALE:
 
 ## Nombre del alumno tal como saldrá en los informes.
 var student_name: String = ""
+## Mejor nota e intentos de cada misión: {id: {best, attempts}}. Reglas en Progress.
+var progress: Dictionary = {}
 
 # --- No se guardan ---
 var current_mission: MissionData  ## misión que abrirá MissionShell
@@ -37,6 +39,7 @@ func reset() -> void:
 	master_volume = 1.0
 	locale = DEFAULT_LOCALE
 	student_name = ""
+	progress = {}
 	current_mission = null
 	pending_seed = 0
 
@@ -63,6 +66,12 @@ func set_locale(value: String) -> void:
 	changed.emit()
 
 
+## Apunta un intento terminado (la nota de la fase en solitario) y guarda.
+func record_attempt(mission_id: String, grade: float) -> void:
+	progress = Progress.record(progress, mission_id, grade)
+	changed.emit()
+
+
 func _apply_volume() -> void:
 	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(master_volume, 0.0001)))
 	AudioServer.set_bus_mute(0, master_volume <= 0.0)
@@ -71,7 +80,7 @@ func _apply_volume() -> void:
 # --- Guardado ---
 
 func to_dict() -> Dictionary:
-	return {"master_volume": master_volume, "locale": locale, "student_name": student_name}
+	return {"master_volume": master_volume, "locale": locale, "student_name": student_name, "progress": progress}
 
 
 ## Carga datos guardados con tolerancia: ignora lo desconocido o mal tipado.
@@ -86,3 +95,4 @@ func from_dict(data: Dictionary) -> void:
 	var student: Variant = data.get("student_name")
 	if student is String:
 		student_name = clean_name(student)
+	progress = Progress.sanitize(data.get("progress"))

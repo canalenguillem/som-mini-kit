@@ -180,6 +180,7 @@ func finish(r: ChallengeResult) -> void:
 	grade = Grading.grade(r.correct, r.total, failed_checks, hints_used, content.hint_count(), weights)
 	report = build_report(r, weights)
 	report_path = AttemptReport.save(report, reports_dir)
+	GameState.record_attempt(mission.id, grade)
 	_show_result(r, weights)
 
 

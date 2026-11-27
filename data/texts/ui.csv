@@ -14,11 +14,9 @@ PAUSE_TITLE,Pausa,Pausa,Paused
 PAUSE_RESUME,Continuar,Continuar,Resume
 PAUSE_QUIT,Abandonar,Abandonar,Quit
 HUB_TITLE,Placa base de TORRE-7,Placa base de TORRE-7,TORRE-7 motherboard
-HUB_EMPTY,"El mapa de la placa arribarà aviat. De moment, entra a la sala recreativa del planificador (tema 4).","El mapa de la placa llegará pronto. De momento, entra en la sala recreativa del planificador (tema 4).","The motherboard map is coming soon. For now, enter the scheduler's arcade (unit 4)."
 LANG_CA,Català,Català,Català
 LANG_ES,Castellano,Castellano,Castellano
 LANG_EN,English,English,English
-HUB_SAMPLE,Missió de prova,Misión de prueba,Test mission
 COMMON_OK,D'acord,Aceptar,OK
 COMMON_CLOSE,Tancar,Cerrar,Close
 OPTIONS_NAME,Nom,Nombre,Name
@@ -128,7 +126,7 @@ CHEAT_T4_TITLE,Xuleta: planificació de la CPU,Chuleta: planificación de la CPU
 CHEAT_T4_BODY,"[b]Primer la graella, després la taula.[/b] Els cicles comencen a l'1; el que arriba en un cicle ja s'hi pot executar.\nGraella: X a la CPU · F últim cicle · W fent E/S · buida: a la cua.\n\n[b]Inici[/b]: primer cicle amb X · [b]Fi[/b]: cicle de la F\n[b]Resposta[/b] = Inici − Arribada\n[b]Servei[/b] = Fi − Arribada + 1\n[b]Espera[/b] = Servei − CPU − E/S\nMitjanes: suma ÷ nombre de processos, tallada a dos decimals (9,666… → 9,66).\n\n[b]FIFO[/b]: per ordre d'arribada. No expulsiu.\n[b]Round Robin[/b]: torns de q cicles; quan l'esgota, al final de la cua. Expulsiu. Si n'entren uns quants alhora: el nou, el que torna d'E/S i, al final, el que esgota el quantum. Si la cua és buida, continua el mateix.\n[b]E/S[/b]: deixa la CPU a l'acte; quan acaba torna al final de la cua, mai directe a la CPU.\n[b]SJF[/b]: dels que esperen, el que necessita menys CPU. No expulsiu.\n[b]SRT[/b]: com SJF però expulsiu: si el que arriba necessita estrictament menys del que li queda al de la CPU, l'expulsa.","[b]Primero la cuadrícula, después la tabla.[/b] Los ciclos empiezan en 1; el que llega en un ciclo ya puede ejecutarse en él.\nCuadrícula: X en la CPU · F último ciclo · W haciendo E/S · vacía: en la cola.\n\n[b]Inicio[/b]: primer ciclo con X · [b]Fin[/b]: ciclo de la F\n[b]Respuesta[/b] = Inicio − Llegada\n[b]Servicio[/b] = Fin − Llegada + 1\n[b]Espera[/b] = Servicio − CPU − E/S\nMedias: suma ÷ número de procesos, truncada a dos decimales (9,666… → 9,66).\n\n[b]FIFO[/b]: por orden de llegada. No expulsivo.\n[b]Round Robin[/b]: turnos de q ciclos; al agotarlo, al final de la cola. Expulsivo. Si entran varios a la vez: el nuevo, el que vuelve de E/S y, por último, el que agota el quantum. Si la cola está vacía, sigue el mismo.\n[b]E/S[/b]: suelta la CPU en el acto; al terminar vuelve al final de la cola, nunca directo a la CPU.\n[b]SJF[/b]: de los que esperan, el que necesita menos CPU. No expulsivo.\n[b]SRT[/b]: como SJF pero expulsivo: si el que llega necesita estrictamente menos de lo que le queda al de la CPU, lo expulsa.","[b]Grid first, then the table.[/b] Cycles start at 1; a process that arrives in a cycle can already run in it.\nGrid: X on the CPU · F last cycle · W doing I/O · empty: in the queue.\n\n[b]Start[/b]: first cycle with an X · [b]Finish[/b]: the F cycle\n[b]Response[/b] = Start − Arrival\n[b]Service[/b] = Finish − Arrival + 1\n[b]Wait[/b] = Service − CPU − I/O\nMeans: sum ÷ number of processes, cut at two decimals (9.666… → 9.66).\n\n[b]FIFO[/b]: in order of arrival. Non-preemptive.\n[b]Round Robin[/b]: turns of q cycles; when it runs out, to the end of the queue. Preemptive. If several join at once: the newcomer, the one back from I/O and, last, the one whose quantum ran out. If the queue is empty, the same one carries on.\n[b]I/O[/b]: leaves the CPU at once; when done it goes to the end of the queue, never straight to the CPU.\n[b]SJF[/b]: of those waiting, the one that needs the least CPU. Non-preemptive.\n[b]SRT[/b]: like SJF but preemptive: if a newcomer needs strictly less than what the running process has left, it preempts it."
 GANTT_NARR_IDLE,la CPU s'atura: la cua és buida.,la CPU se queda parada: la cola está vacía.,the CPU sits idle: the queue is empty.
 GANTT_WRONG_CELL_ONE,Tens 1 cicle malament a la graella:,Tienes 1 ciclo mal en la cuadrícula:,You have 1 cycle wrong in the grid:
-M4_STATES_TITLE,Sala del planificador: estats del procés,Sala del planificador: estados del proceso,Scheduler room: process states
+M4_STATES_TITLE,Escalfament: estats del procés,Calentamiento: estados del proceso,Warm-up: process states
 ST_TASK,Quina transició del diagrama d'estats passa a cada situació?,¿Qué transición del diagrama de estados ocurre en cada situación?,Which transition of the state diagram happens in each situation?
 ST_CHOOSE,— Tria —,— Elige —,— Choose —
 ST_T_NEW_READY,Nou → Preparat,Nuevo → Preparado,New → Ready
@@ -187,3 +185,26 @@ ARCADE_HINT_SRT,"Compara fitxes: si el que arriba en té estrictament menys que 
 ARCADE_SIGN,★ SALA RECREATIVA TORRE-7 ★,★ SALA RECREATIVA TORRE-7 ★,★ TORRE-7 ARCADE ★
 ARCADE_WHO,Qui juga?,¿Quién juega?,Who plays?
 ARCADE_FREE,Lliure,Libre,Free
+ZONE_1_TITLE,El taller,El taller,The workshop
+ZONE_2_TITLE,La torre de capes,La torre de capas,The layer tower
+ZONE_3_TITLE,La caixa forta binària,La caja fuerte binaria,The binary safe
+ZONE_4_TITLE,La sala recreativa del planificador,La sala recreativa del planificador,The scheduler's arcade
+ZONE_5_TITLE,El magatzem de RAM,El almacén de RAM,The RAM warehouse
+ZONE_6_TITLE,L'arxiu,El archivo,The archive
+ZONE_7_TITLE,L'hipervisor,El hipervisor,The hypervisor
+COMP_BIOS,Xip de la BIOS,Chip de la BIOS,BIOS chip
+COMP_CHIPSET,Chipset,Chipset,Chipset
+COMP_USB,Ports USB,Puertos USB,USB ports
+COMP_CPU,CPU,CPU,CPU
+COMP_RAM,Memòria RAM,Memoria RAM,RAM
+COMP_SATA,Disc (SATA),Disco (SATA),Disk (SATA)
+COMP_PCIE,Ranura PCIe,Ranura PCIe,PCIe slot
+ZONE_LOCKED,Tancada,Cerrada,Locked
+ZONE_SOON,Properament,Próximamente,Coming soon
+ZONE_ROOMS,{passed}/{total} sales,{passed}/{total} salas,{passed}/{total} rooms
+ZONE_PASSED,Superada · {grade},Superada · {grade},Complete · {grade}
+ZONE_SUMMARY,Sales superades: {passed} de {total} · Nota de la zona: {grade},Salas superadas: {passed} de {total} · Nota de la zona: {grade},Rooms complete: {passed} of {total} · Zone grade: {grade}
+ROOM_NEW,Per fer,Sin hacer,Not done
+ROOM_BEST,Millor: {grade} · {attempts} intents,Mejor: {grade} · {attempts} intentos,Best: {grade} · {attempts} attempts
+ROOM_PLAY,Jugar,Jugar,Play
+ROOM_BEST_ONE,Millor: {grade} · 1 intent,Mejor: {grade} · 1 intento,Best: {grade} · 1 attempt

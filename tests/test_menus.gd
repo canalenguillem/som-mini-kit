@@ -37,7 +37,7 @@ func test_jugar_lleva_al_hub() -> void:
 	assert_true(ResourceLoader.exists(menu.HUB))
 
 
-func test_hub_vacio_se_construye() -> void:
+func test_hub_se_construye() -> void:
 	var hub: Hub = _scene("res://scenes/hub/hub.tscn") as Hub
 	await wait_physics_frames(1)
 	assert_not_null(hub._back)

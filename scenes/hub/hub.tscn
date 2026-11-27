@@ -1,14 +1,31 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/hub/hub.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/mission_data.gd" id="md"]
-[ext_resource type="Resource" path="res://data/missions/m4_states.tres" id="ms"]
-[ext_resource type="Resource" path="res://data/missions/m4_fifo.tres" id="m0"]
-[ext_resource type="Resource" path="res://data/missions/m4_rr.tres" id="m1"]
-[ext_resource type="Resource" path="res://data/missions/m4_rr_io.tres" id="m2"]
-[ext_resource type="Resource" path="res://data/missions/m4_sjf.tres" id="m3"]
-[ext_resource type="Resource" path="res://data/missions/m4_srt.tres" id="m4"]
-[ext_resource type="Resource" path="res://data/missions/sample.tres" id="m5"]
+[ext_resource type="Script" path="res://scenes/hub/board_view.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/zone_data.gd" id="zd"]
+[ext_resource type="Resource" path="res://data/zones/zone_1.tres" id="z1"]
+[ext_resource type="Resource" path="res://data/zones/zone_2.tres" id="z2"]
+[ext_resource type="Resource" path="res://data/zones/zone_3.tres" id="z3"]
+[ext_resource type="Resource" path="res://data/zones/zone_4.tres" id="z4"]
+[ext_resource type="Resource" path="res://data/zones/zone_5.tres" id="z5"]
+[ext_resource type="Resource" path="res://data/zones/zone_6.tres" id="z6"]
+[ext_resource type="Resource" path="res://data/zones/zone_7.tres" id="z7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 28.0
+content_margin_top = 20.0
+content_margin_right = 28.0
+content_margin_bottom = 20.0
+bg_color = Color(0.1, 0.12, 0.16, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.75, 0.2, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="Hub" type="Control"]
 layout_mode = 3
@@ -18,7 +35,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
-missions = Array[ExtResource("md")]([ExtResource("ms"), ExtResource("m0"), ExtResource("m1"), ExtResource("m2"), ExtResource("m3"), ExtResource("m4"), ExtResource("m5")])
+zones = Array[ExtResource("zd")]([ExtResource("z1"), ExtResource("z2"), ExtResource("z3"), ExtResource("z4"), ExtResource("z5"), ExtResource("z6"), ExtResource("z7")])
 
 [node name="Bg" type="ColorRect" parent="."]
 layout_mode = 1
@@ -27,7 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.06, 0.22, 0.14, 1)
+color = Color(0.06, 0.08, 0.1, 1)
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -36,36 +53,93 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
 
 [node name="Box" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="Title" type="Label" parent="Margin/Box"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.75, 0.2, 1)
-theme_override_font_sizes/font_size = 48
-text = "HUB_TITLE"
-
-[node name="Empty" type="Label" parent="Margin/Box"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "HUB_EMPTY"
-horizontal_alignment = 1
-
-[node name="Missions" type="VBoxContainer" parent="Margin/Box"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
 theme_override_constants/separation = 10
 
-[node name="Back" type="Button" parent="Margin/Box"]
-custom_minimum_size = Vector2(220, 0)
+[node name="Top" type="HBoxContainer" parent="Margin/Box"]
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 26
+theme_override_constants/separation = 16
+
+[node name="Back" type="Button" parent="Margin/Box/Top"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "COMMON_BACK"
+
+[node name="Title" type="Label" parent="Margin/Box/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.95, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 34
+text = "HUB_TITLE"
+
+[node name="Student" type="Label" parent="Margin/Box/Top"]
+layout_mode = 2
+auto_translate_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 22
+
+[node name="Board" type="Control" parent="Margin/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("2")
+
+[node name="PanelLayer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="PanelContainer" parent="PanelLayer"]
+custom_minimum_size = Vector2(860, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -250.0
+offset_right = 430.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Box" type="VBoxContainer" parent="PanelLayer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="PanelLayer/Panel/Box"]
+layout_mode = 2
+auto_translate_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.2, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="Summary" type="Label" parent="PanelLayer/Panel/Box"]
+layout_mode = 2
+auto_translate_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Rooms" type="VBoxContainer" parent="PanelLayer/Panel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Close" type="Button" parent="PanelLayer/Panel/Box"]
+custom_minimum_size = Vector2(200, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "COMMON_CLOSE"

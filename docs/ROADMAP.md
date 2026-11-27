@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M2 — Demo jugable: misión 4 (planificador)** (hecho; **parado para que Guillem lo pruebe con alumnos**).
+Hito actual: **M3 — Hub y progreso** (hecho; falta la validación de Guillem). La prueba de M2 con alumnos sigue pendiente: Guillem decidió seguir antes (2026-11-27).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -41,7 +41,7 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] Mensajes de fallo precisos («En el ciclo 3 le tocaba a P2, no a P1» + por qué), tabla con error arrastrado
 - [x] Seis salas con su nota: estados, FIFO, Round Robin, Round Robin con E/S, SJF, SRT; tres fases, chuleta y resultado
 - [x] Rehecha como **sala recreativa** tras la primera prueba de Guillem (máquina = CPU, jugadores con fichas, decisiones al momento, cuadrícula automática, tabla corta al final; medias como fracción)
-- [ ] **Parar aquí: Guillem la prueba con alumnos** antes de seguir
+- [ ] **Guillem la prueba con alumnos** (pendiente; se siguió con M3 por decisión suya)
 
 ### Qué probar (M2)
 1. Sala recreativa: ¿se entiende qué hay que tocar? ¿Engancha más que la cuadrícula? ¿Se ve la relación con la cuadrícula del libro que se dibuja debajo?
@@ -52,8 +52,12 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 6. «Inicio» y «Fin» se piden en la tabla aunque salen de la cuadrícula, como en el libro. ¿Se mantienen?
 
 ## M3 — Hub y progreso
-- [ ] Mapa de la placa base con buses y 7 zonas (bloqueada, abierta, superada); arte Kenney CC0
-- [ ] Desbloqueo en el orden del cuaderno; mejor nota e intentos guardados
+- [x] Mapa de la placa base (`board_view.gd`): pistas de los buses desde la CPU y 7 zonas sobre su pieza (BIOS, chipset, USB, CPU, RAM, SATA, PCIe); el alumno es un punto de luz que viaja por el bus
+- [x] Estados de zona: cerrada, abierta, superada (con nota) y «próximamente» (sin salas todavía)
+- [x] Desbloqueo en el orden del cuaderno: abierta si están superadas todas las anteriores que ya tienen salas (`Progress`)
+- [x] Mejor nota e intentos de cada sala guardados (`GameState.progress`); nota de zona = media de las mejores; zona superada = todas sus salas ≥ 5
+- [x] Panel de zona con sus salas, mejor nota, intentos y botón Jugar
+- [ ] **Guillem:** ¿se entiende el mapa? ¿Las piezas de cada tema tienen sentido (`data/zones/zone_N.tres`)?
 
 ## M4 a M9 — Resto de misiones (orden del cuaderno)
 - [ ] M4: misión 1, el taller (tema 1)
