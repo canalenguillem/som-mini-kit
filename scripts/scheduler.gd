@@ -190,10 +190,19 @@ static func format_hundredths(h: int, decimal: String = ",") -> String:
 	return "%d%s%02d" % [whole, decimal, frac]
 
 
-## Lee lo que escribe el alumno («9,66», «9.66», «5», « 4,4 ») a centésimas, truncando.
-## -1 si no es un número válido ≥ 0.
+## Lee lo que escribe el alumno («9,66», «9.66», «5», « 4,4 » o una fracción como «29/3») a
+## centésimas, truncando. -1 si no es un número válido ≥ 0.
 static func parse_hundredths(text: String) -> int:
-	var t: String = text.strip_edges().replace(",", ".")
+	var t: String = text.strip_edges().replace(",", ".").replace(" ", "")
+	if t.contains("/"):
+		var parts: PackedStringArray = t.split("/")
+		if parts.size() != 2 or not parts[0].is_valid_int() or not parts[1].is_valid_int():
+			return -1
+		var num: int = int(parts[0])
+		var den: int = int(parts[1])
+		if num < 0 or den <= 0:
+			return -1
+		return (num * 100) / den
 	if t.is_empty() or not t.is_valid_float() or t.begins_with("-"):
 		return -1
 	var parts: PackedStringArray = t.split(".")

@@ -161,8 +161,22 @@ func _build_table() -> void:
 		_table.add_child(Control.new())
 	for f: String in ["response", "service", "wait"]:
 		var edit: LineEdit = _edit()
+		edit.max_length = 9
+		edit.tooltip_text = "GANTT_MEAN_TOOLTIP"
+		edit.focus_exited.connect(_fraction_to_decimal.bind(edit))
+		edit.text_submitted.connect(func(_t: String) -> void: _fraction_to_decimal(edit))
 		_mean_inputs[f] = edit
 		_table.add_child(edit)
+
+
+## En las medias se puede escribir la fracción («3/4»): al salir de la casilla se ve ya dividida y
+## truncada como en el libro («0,75»).
+func _fraction_to_decimal(edit: LineEdit) -> void:
+	if not edit.text.contains("/"):
+		return
+	var h: int = Scheduler.parse_hundredths(edit.text)
+	if h >= 0:
+		edit.text = Scheduler.format_hundredths(h, _decimal())
 
 
 func _label(text: String, translate: bool, bold: bool = true) -> Label:

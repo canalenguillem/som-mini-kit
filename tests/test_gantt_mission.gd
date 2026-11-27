@@ -136,3 +136,19 @@ func test_pistas() -> void:
 	for i: int in 3:
 		assert_ne(_content().hint(i), "")
 	assert_string_contains(_content().hint(1), "1", "la segunda pista habla del primer ciclo que falla")
+
+
+func test_media_como_fraccion() -> void:
+	await _open("res://data/missions/m4_fifo.tres")
+	shell.next_phase()
+	shell.next_phase()
+	var edit: LineEdit = _content()._mean_inputs["wait"]
+	edit.text = "3/4"
+	_content()._fraction_to_decimal(edit)
+	assert_eq(edit.text, "0,75")
+	edit.text = "29/3"
+	_content()._fraction_to_decimal(edit)
+	assert_eq(edit.text, "9,66")
+	edit.text = "3/0"
+	_content()._fraction_to_decimal(edit)
+	assert_eq(edit.text, "3/0", "si no es válida, se deja como está para que se vea el error")

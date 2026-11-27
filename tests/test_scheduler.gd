@@ -145,3 +145,13 @@ func test_leer_lo_que_escribe_el_alumno() -> void:
 	assert_eq(Scheduler.parse_hundredths("abc"), -1)
 	assert_eq(Scheduler.parse_hundredths("-1"), -1)
 	assert_eq(Scheduler.parse_hundredths("1,2,3"), -1)
+
+
+func test_las_medias_se_pueden_escribir_como_fraccion() -> void:
+	assert_eq(Scheduler.parse_hundredths("3/4"), 75)
+	assert_eq(Scheduler.parse_hundredths("29/3"), 966, "truncada, como el libro")
+	assert_eq(Scheduler.parse_hundredths(" 20 / 4 "), 500)
+	assert_eq(Scheduler.parse_hundredths("3/0"), -1)
+	assert_eq(Scheduler.parse_hundredths("3/4/2"), -1)
+	assert_eq(Scheduler.parse_hundredths("a/4"), -1)
+	assert_eq(Scheduler.parse_hundredths("-3/4"), -1)
