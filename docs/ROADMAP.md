@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M2 — Demo jugable: misión 4 (planificador)** (M1 validado).
+Hito actual: **M2 — Demo jugable: misión 4 (planificador)** (hecho; **parado para que Guillem lo pruebe con alumnos**).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -34,13 +34,21 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 5. «Informes» abre la carpeta con el JSON. Cambia de idioma desde la pausa (Esc → Opcions) en mitad de la misión.
 
 ## M2 — Demo jugable: misión 4 (planificador)
-- [ ] Leer el tema 4 del cuaderno (y `planisim`): vocabulario, ejemplos y criterio de desempate
-- [ ] `scheduler.gd` con tests de FIFO, RR, SJF y SRT contra los ejercicios resueltos; desempates documentados en el GDD
-- [ ] Calentamiento: diagrama de estados
-- [ ] Editor de Gantt arrastrable (ratón y táctil); tiempos de espera y retorno y medias
-- [ ] Mensajes de fallo precisos («RR: en t=6 le tocaba a P3»)
-- [ ] Las tres fases, chuleta y resultado
+- [x] Leer el tema 4 del cuaderno y `planisim`: extracto en `docs/temario/tema4.md` (vocabulario ca/es, chuleta, desempates, 16 ejercicios resueltos)
+- [x] `scheduler.gd` con FIFO, RR (con E/S), SJF y SRT en ciclos desde 1, como el libro; los 16 casos resueltos del libro son tests
+- [x] Calentamiento: sala de estados del proceso (6 situaciones, la trampa «Bloqueado → En ejecución»)
+- [x] Cuadrícula del libro (tocar o arrastrar por la fila; F y W automáticas) y tabla Inicio/Fin/Respuesta/Servicio/Espera con medias truncadas
+- [x] Mensajes de fallo precisos («En el ciclo 3 le tocaba a P2, no a P1» + por qué), tabla con error arrastrado
+- [x] Seis salas con su nota: estados, FIFO, Round Robin, Round Robin con E/S, SJF, SRT; tres fases, chuleta y resultado
 - [ ] **Parar aquí: Guillem la prueba con alumnos** antes de seguir
+
+### Qué probar (M2)
+1. ¿Se entiende la cuadrícula sin explicación? ¿Es cómodo marcar con ratón y en pantalla táctil (tocar y arrastrar)?
+2. Ejemplo animado: ¿la velocidad va bien? (`reveal_interval` en `gantt_mission.tscn`, 0,8 s por ciclo).
+3. ¿Los mensajes de fallo ayudan? (ciclo y motivo; +1 del servicio; E/S en la espera; medias truncadas).
+4. ¿Cuánto tarda cada sala? Objetivo: 5–8 min por sala.
+5. Tamaño de los ejercicios: 4 procesos (3 con E/S), como mucho 16 ciclos. ¿Muy fácil o muy difícil?
+6. «Inicio» y «Fin» se piden en la tabla aunque salen de la cuadrícula, como en el libro. ¿Se mantienen?
 
 ## M3 — Hub y progreso
 - [ ] Mapa de la placa base con buses y 7 zonas (bloqueada, abierta, superada); arte Kenney CC0

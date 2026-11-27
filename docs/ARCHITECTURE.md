@@ -31,12 +31,14 @@ scenes/
   hub/hub.tscn              # placa base de TORRE-7 (zonas en M3; de momento, botón a la misión de prueba)
   mission/mission_shell.tscn, mission_content.gd   # marco común y base de los retos
   missions/sample/          # misión de prueba: cerrojo binario
+  missions/m4_scheduler/    # gantt_grid (cuadrícula pintable), gantt_mission, states_quiz
   missions/m1_workshop/ … m7_hypervisor/  # una carpeta por misión
 ```
 
 ## Marco de misión
 
-- `MissionData` (`data/missions/*.tres`): id, tema, título (clave), criterios RA, escena de contenido, `Cheatsheet` y `GradingWeights`.
+- `MissionData` (`data/missions/*.tres`): id, tema, título (clave), criterios RA, escena de contenido, `Cheatsheet`, `GradingWeights` y `params` (lo lee el contenido en `configure()`; p. ej. `{"algorithm": "RR", "io": true}`). Una misión del cuaderno puede tener varias salas: varios `MissionData` con la misma escena y distintos `params`.
+- El hub lista sus misiones desde `@export var missions: Array[MissionData]` en `hub.tscn`.
 - El hub pone `GameState.current_mission` y abre `scenes/mission/mission_shell.tscn`. La semilla sale de `GameState.take_seed()` (la impuesta en `pending_seed`, o una al azar).
 - `MissionShell` crea la escena de contenido, que hereda de `MissionContent` y implementa `_build()` (con `phase` y `exercise_seed`), `check() -> ChallengeResult`, `hint_count()` y `hint(i)`.
 - Semillas por fase: ejemplo y guiado usan `ExerciseSeed.derive(semilla, "example"/"guided")`; la fase en solitario usa la semilla del intento, que es la que va al informe. Así el profesor reproduce exactamente lo que se puntuó.
@@ -52,12 +54,18 @@ scenes/
 | `binary_lock.gd` | M1 | Cerrojo binario de la misión de prueba (se reutilizará en la misión 3) |
 | `grading.gd` | M1 | Nota 0–10 a partir de aciertos, intentos y pistas |
 | `attempt_report.gd` | M1 | Registro de intentos e informe JSON firmado con HMAC |
-| `scheduler.gd` | M2 | FIFO, RR, SJF, SRT → Gantt y tiempos de espera/retorno |
+| `scheduler.gd`, `schedule.gd` | M2 | FIFO, RR (con E/S), SJF, SRT en ciclos desde 1 → cuadrícula, colas, motivo de cada ciclo, tiempos y medias truncadas |
+| `gantt_exercise.gd` | M2 | Genera ejercicios de planificación y corrige cuadrícula y tabla (error arrastrado) |
+| `process_states.gd` | M2 | Calentamiento: situaciones y transiciones del diagrama de estados |
 | `number_systems.gd` | M6 | Binario, hexadecimal, suma, ASCII, TB/TiB, descargas |
 | `memory.gd` | M7 | Ajustes de particiones, fragmentación, paginación |
 | `permissions.gd`, `raid.gd`, `paths.gd` | M8 | rwx/octal, RAID, rutas |
 | `vm_network.gd` | M9 | Conectividad según el modo de red |
 | `online_client.gd` | kit | Protocolo del servidor |
+
+## Material del cuaderno
+
+`docs/temario/temaN.md`: extracto de cada tema (vocabulario ca/es, chuleta, reglas, ejercicios resueltos con solución) sacado de los PDF y los `.md` fuente de Google Drive. Es la referencia de los tests de cada misión.
 
 ## Datos
 

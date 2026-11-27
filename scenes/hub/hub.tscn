@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/hub/hub.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/mission_data.gd" id="md"]
+[ext_resource type="Resource" path="res://data/missions/m4_states.tres" id="ms"]
 [ext_resource type="Resource" path="res://data/missions/m4_fifo.tres" id="m0"]
 [ext_resource type="Resource" path="res://data/missions/m4_rr.tres" id="m1"]
 [ext_resource type="Resource" path="res://data/missions/m4_rr_io.tres" id="m2"]
@@ -17,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
-missions = Array[ExtResource("md")]([ExtResource("m0"), ExtResource("m1"), ExtResource("m2"), ExtResource("m3"), ExtResource("m4"), ExtResource("m5")])
+missions = Array[ExtResource("md")]([ExtResource("ms"), ExtResource("m0"), ExtResource("m1"), ExtResource("m2"), ExtResource("m3"), ExtResource("m4"), ExtResource("m5")])
 
 [node name="Bg" type="ColorRect" parent="."]
 layout_mode = 1
