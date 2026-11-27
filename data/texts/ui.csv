@@ -14,7 +14,53 @@ PAUSE_TITLE,Pausa,Pausa,Paused
 PAUSE_RESUME,Continuar,Continuar,Resume
 PAUSE_QUIT,Abandonar,Abandonar,Quit
 HUB_TITLE,Placa base de TORRE-7,Placa base de TORRE-7,TORRE-7 motherboard
-HUB_EMPTY,Les zones s'obriran aviat.,Las zonas se abrirán pronto.,Zones will open soon.
+HUB_EMPTY,"Les zones s'obriran aviat. De moment, pots fer la missió de prova.","Las zonas se abrirán pronto. De momento, puedes hacer la misión de prueba.","Zones will open soon. For now, you can play the test mission."
 LANG_CA,Català,Català,Català
 LANG_ES,Castellano,Castellano,Castellano
 LANG_EN,English,English,English
+HUB_SAMPLE,Missió de prova,Misión de prueba,Test mission
+COMMON_OK,D'acord,Aceptar,OK
+COMMON_CLOSE,Tancar,Cerrar,Close
+OPTIONS_NAME,Nom,Nombre,Name
+NAME_PROMPT,Com et dius? El teu nom sortirà als informes que veurà el professor.,¿Cómo te llamas? Tu nombre saldrá en los informes que verá el profesor.,What's your name? It will appear in the reports your teacher sees.
+NAME_PLACEHOLDER,Nom i cognoms,Nombre y apellidos,First and last name
+PHASE_LABEL,Fase {n}/3: {name},Fase {n}/3: {name},Step {n}/3: {name}
+PHASE_EXAMPLE,Exemple,Ejemplo,Example
+PHASE_GUIDED,Guiat,Guiado,Guided
+PHASE_SOLO,Tu sol,Tú solo,On your own
+PHASE_EXAMPLE_INTRO,"Mira com es resol, pas a pas. Quan ho tinguis clar, prem «Següent».","Mira cómo se resuelve, paso a paso. Cuando lo tengas claro, pulsa «Siguiente».","Watch how it's solved, step by step. When it's clear, press ""Next""."
+PHASE_GUIDED_INTRO,"Ara tu, amb una part ja feta. Completa-ho i prem «Comprovar». Aquí els errors no compten.","Ahora tú, con una parte ya hecha. Complétalo y pulsa «Comprobar». Aquí los errores no cuentan.","Your turn, with part of it already done. Finish it and press ""Check"". Mistakes don't count here."
+PHASE_SOLO_INTRO,"Ara tot sol, i aquesta fase puntua. Cada comprovació fallida i cada pista resten una mica; la xuleta (F1) no resta.","Ahora tú solo, y esta fase puntúa. Cada comprobación fallida y cada pista restan un poco; la chuleta (F1) no resta.","Now on your own, and this step is graded. Each failed check and each hint costs a little; the cheat sheet (F1) is free."
+CHEATSHEET_BUTTON,Xuleta (F1),Chuleta (F1),Cheat sheet (F1)
+HINT_BUTTON,Pista (F2): {n},Pista (F2): {n},Hint (F2): {n}
+HINT_PREFIX,Pista:,Pista:,Hint:
+BUTTON_CHECK,Comprovar,Comprobar,Check
+BUTTON_HAND_IN,Lliurar,Entregar,Hand in
+BUTTON_NEXT,Següent,Siguiente,Next
+CHECK_OK_GUIDED,Perfecte! Prem «Següent» per fer-ho tot sol.,¡Perfecto! Pulsa «Siguiente» para hacerlo tú solo.,"Perfect! Press ""Next"" to do it on your own."
+CHECK_WRONG,Tens {correct} de {total} bé. Revisa això:,Tienes {correct} de {total} bien. Revisa esto:,You have {correct} of {total} right. Check this:
+RESULT_PASSED,Missió superada!,¡Misión superada!,Mission complete!
+RESULT_FAILED,Encara no: torna-ho a provar,Todavía no: vuelve a intentarlo,Not yet: try again
+RESULT_ACCURACY,Encerts: {correct} de {total},Aciertos: {correct} de {total},Correct: {correct} of {total}
+RESULT_FAILED_CHECKS,Comprovacions fallides: {n},Comprobaciones fallidas: {n},Failed checks: {n}
+RESULT_HINTS,Pistes: {used} de {total},Pistas: {used} de {total},Hints: {used} of {total}
+RESULT_TIME,Temps: {time},Tiempo: {time},Time: {time}
+RESULT_SEED,Llavor de l'exercici: {seed},Semilla del ejercicio: {seed},Exercise seed: {seed}
+RESULT_LAST_MISTAKES,El que fallava en lliurar:,Lo que fallaba al entregar:,What was wrong when you handed in:
+RESULT_SAVED,Informe desat. El trobaràs a «Informes».,Informe guardado. Lo encontrarás en «Informes».,"Report saved. You'll find it in ""Reports""."
+RESULT_NOT_SAVED,No s'ha pogut desar l'informe.,No se ha podido guardar el informe.,The report could not be saved.
+RESULT_RETRY,Repetir,Repetir,Retry
+RESULT_OPEN_REPORTS,Informes,Informes,Reports
+RESULT_TO_HUB,Al mapa,Al mapa,To the map
+SAMPLE_TITLE,Missió de prova: el pany binari,Misión de prueba: el candado binario,Test mission: the binary lock
+SAMPLE_TASK,Escriu {target} en binari,Escribe {target} en binario,Write {target} in binary
+SAMPLE_SUM,Els teus interruptors sumen {sum},Tus interruptores suman {sum},Your switches add up to {sum}
+SAMPLE_HINT_1,"Recorre la xuleta d'esquerra a dreta: si el pes cap en el que queda, encén-lo i resta'l.","Recorre la chuleta de izquierda a derecha: si el peso cabe en lo que queda, enciéndelo y réstalo.","Go through the cheat sheet from left to right: if the weight fits in what's left, switch it on and subtract it."
+SAMPLE_HINT_2,El primer interruptor encès és el {weight}.,El primer interruptor encendido es el {weight}.,The first switch that is on is {weight}.
+BIN_STEP_ON,{weight} cap en {rest} → 1 (en queden {left}),{weight} cabe en {rest} → 1 (quedan {left}),{weight} fits in {rest} → 1 ({left} left)
+BIN_STEP_OFF,{weight} no cap en {rest} → 0,{weight} no cabe en {rest} → 0,{weight} doesn't fit in {rest} → 0
+BIN_SUM_MISMATCH,Els interruptors sumen {sum} i havien de sumar {target}.,Los interruptores suman {sum} y tenían que sumar {target}.,"Your switches add up to {sum}, but they should add up to {target}."
+BIN_BIT_SHOULD_BE_ON,El {weight} cap en el que queda ({rest}): encén-lo.,El {weight} cabe en lo que queda ({rest}): enciéndelo.,{weight} fits in what's left ({rest}): switch it on.
+BIN_BIT_SHOULD_BE_OFF,El {weight} no cap en el que queda ({rest}): apaga'l.,El {weight} no cabe en lo que queda ({rest}): apágalo.,{weight} doesn't fit in what's left ({rest}): switch it off.
+CHEAT_BINARY_TITLE,Xuleta: de decimal a binari,Chuleta: de decimal a binario,Cheat sheet: decimal to binary
+CHEAT_BINARY_BODY,"[b]Pesos d'un byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Mètode[/b]\n1. Comença pel 128 i ves cap a la dreta.\n2. Si el pes cap en el que queda, posa un 1 i resta'l.\n3. Si no hi cap, posa un 0 i passa al següent.\n\n[b]Comprovació de volta[/b]: suma els pesos dels 1. Ha de donar el número.\nExemple: 200 = 128 + 64 + 8 → 11001000","[b]Pesos de un byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Método[/b]\n1. Empieza por el 128 y ve hacia la derecha.\n2. Si el peso cabe en lo que queda, pon un 1 y réstalo.\n3. Si no cabe, pon un 0 y pasa al siguiente.\n\n[b]Comprobación de vuelta[/b]: suma los pesos de los 1. Tiene que dar el número.\nEjemplo: 200 = 128 + 64 + 8 → 11001000","[b]Weights of a byte[/b]\n[table=8][cell] 128 [/cell][cell] 64 [/cell][cell] 32 [/cell][cell] 16 [/cell][cell] 8 [/cell][cell] 4 [/cell][cell] 2 [/cell][cell] 1 [/cell][/table]\n\n[b]Method[/b]\n1. Start at 128 and move right.\n2. If the weight fits in what's left, write 1 and subtract it.\n3. If it doesn't fit, write 0 and move on.\n\n[b]Check back[/b]: add up the weights of the 1s. It must give the number.\nExample: 200 = 128 + 64 + 8 → 11001000"

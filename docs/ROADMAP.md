@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M1 — Marco de misión** (M0 terminado y validado).
+Hito actual: **M1 — Marco de misión** (código y pruebas hechos; falta la validación de Guillem).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -16,12 +16,22 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] **Guillem:** abrir el juego, cambiar de idioma en el menú y en opciones, cerrar y volver a abrir (debe recordar el idioma), entrar al hub y volver
 
 ## M1 — Marco de misión
-- [ ] `exercise_seed.gd`: RNG sembrado (tests: misma semilla, mismo ejercicio)
-- [ ] `grading.gd` y pesos en `.tres` (70 % aciertos, 20 % intentos, 10 % pistas)
-- [ ] `attempt_report.gd`: registro de intentos e informe local JSON con HMAC
-- [ ] `MissionData` (`.tres`) y chuleta por tema
-- [ ] `mission_shell`: tres fases (ejemplo, guiado, solitario), chuleta (F1), pistas (F2), resultado
-- [ ] Textos en ca/es/en; tests
+- [x] `exercise_seed.gd`: RNG sembrado, semillas de seis cifras y derivadas por fase (tests)
+- [x] `grading.gd` y pesos en `data/grading/default.tres` (70 % aciertos, 20 % intentos, 10 % pistas) (tests)
+- [x] `attempt_report.gd`: informe JSON con HMAC-SHA256 en `user://reports/`, verificable (tests)
+- [x] `MissionData`, `Cheatsheet`, `ChallengeResult` y la base `MissionContent`
+- [x] `mission_shell`: tres fases (ejemplo, guiado, en solitario), chuleta (F1), pistas (F2), comprobar/entregar, resultado (tests)
+- [x] Nombre del alumno: se pide al pulsar Jugar la primera vez y se cambia en Opciones; sale en el informe
+- [x] Misión de prueba (cerrojo binario, `scenes/missions/sample/`) accesible desde el hub para probar el marco
+- [x] Textos en ca/es/en
+- [ ] **Guillem:** hacer la misión de prueba entera (ver «Qué probar» abajo)
+
+### Qué probar (M1)
+1. Jugar → escribe tu nombre → Missió de prova.
+2. Fase 1: ¿se entiende el ejemplo animado? ¿Va demasiado rápido o lento? (`reveal_interval` en `binary_switches.tscn`).
+3. Fase 2: equivócate a propósito. ¿Los mensajes ayudan a arreglarlo?
+4. Fase 3: usa una pista, abre la chuleta (F1), falla una vez y acaba. ¿La nota te parece justa? (pesos en `data/grading/default.tres`).
+5. «Informes» abre la carpeta con el JSON. Cambia de idioma desde la pausa (Esc → Opcions) en mitad de la misión.
 
 ## M2 — Demo jugable: misión 4 (planificador)
 - [ ] Leer el tema 4 del cuaderno (y `planisim`): vocabulario, ejemplos y criterio de desempate

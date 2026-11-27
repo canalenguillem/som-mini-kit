@@ -12,6 +12,9 @@ const TRANSLATED_SCENES: Array[String] = [
 	"res://scenes/ui/pause_menu.tscn",
 	"res://scenes/ui/language_selector.tscn",
 	"res://scenes/hub/hub.tscn",
+	"res://scenes/ui/name_dialog.tscn",
+	"res://scenes/mission/mission_shell.tscn",
+	"res://scenes/missions/sample/binary_switches.tscn",
 ]
 
 

@@ -80,11 +80,14 @@ Cada misión se compone de varios retos cortos.
 
 ## Evaluación
 
-- **Nota de misión (0–10):** 70 % aciertos de la fase en solitario, 20 % intentos (cada fallo resta), 10 % pistas no usadas. Pesos en un `.tres`, ajustables.
+- **Nota de misión (0–10):** 70 % aciertos de la fase en solitario, 20 % intentos (cada fallo resta), 10 % pistas no usadas. Pesos en `data/grading/default.tres`, ajustables por misión.
+  - Fórmula: `nota = 10 · aciertos · (0,7 + 0,2 · intentos + 0,1 · pistas)`, con `aciertos` = correctos/total al acabar, `intentos` = 1 − 0,25 por comprobación fallida (mínimo 0) y `pistas` = 1 − usadas/disponibles. Intentos y pistas se multiplican por los aciertos para que entregar en blanco dé 0 y no 3. Se redondea a una décima.
+  - En la fase en solitario el alumno puede **comprobar** (si falla, cuenta un intento y ve qué falla) o **entregar** lo que tenga.
 - **Aprobado:** ≥ 5. Se puede repetir con otra semilla; se guarda la mejor nota y el número de intentos.
 - **De momento las notas son solo de práctica** (decisión de Guillem, 2026-11-27): el modo examen se queda en M10.
 - **Modo examen:** sin ejemplo resuelto ni pistas, con tiempo límite y una semilla que da el profesor en clase.
-- **Registro de cada intento:** alumno, misión, semilla, nota, duración, criterios RA y lista de fallos concretos.
+- **Registro de cada intento:** alumno, misión, semilla, nota, duración, criterios RA y lista de fallos concretos. Se guarda al acabar en `user://reports/<misión>_<fecha>_<semilla>.json` con un código HMAC-SHA256 que delata cualquier edición a mano (la clave va en el juego: sirve para el aula, no resiste a quien desmonte el ejecutable).
+- **Nombre del alumno:** se pide la primera vez que se pulsa Jugar y se cambia en Opciones.
 - **Entrega al profesor:** (b) siempre, un informe local exportable (JSON con código de comprobación HMAC) por si no hay red; (a) envío al servidor propio (`miniso.enguillem.es`) mediante `Online`, visible en el panel de administración (M11).
 
 ## Qué valida el profesor jugando

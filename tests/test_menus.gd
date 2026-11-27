@@ -103,3 +103,39 @@ func test_el_volumen_se_guarda_y_se_corrige() -> void:
 	assert_eq(other.master_volume, 1.0, "mal tipado: se ignora")
 	DirAccess.remove_absolute(path)
 	GameState.master_volume = 1.0
+
+
+func test_jugar_sin_nombre_lo_pide() -> void:
+	var menu: MainMenu = _scene("res://scenes/ui/main_menu.tscn") as MainMenu
+	await wait_physics_frames(1)
+	assert_false(menu._name_layer.visible)
+	menu._on_play_pressed()
+	assert_true(menu._name_layer.visible)
+	assert_false(menu._menu.visible)
+	menu._on_name_cancelled()
+	assert_true(menu._menu.visible)
+
+
+func test_dialogo_de_nombre() -> void:
+	var dialog: NameDialog = _scene("res://scenes/ui/name_dialog.tscn") as NameDialog
+	await wait_physics_frames(1)
+	dialog.open()
+	dialog._input.text = "   "
+	dialog._update_ok()
+	assert_true(dialog._ok.disabled)
+	watch_signals(dialog)
+	dialog.accept()
+	assert_signal_not_emitted(dialog, "confirmed")
+	dialog._input.text = "  Anna Vidal  "
+	dialog.accept()
+	assert_signal_emitted_with_parameters(dialog, "confirmed", ["Anna Vidal"])
+	assert_eq(GameState.student_name, "Anna Vidal")
+
+
+func test_el_nombre_se_guarda_y_se_limpia() -> void:
+	var gs: Node = autofree(GameStateScript.new())
+	gs.from_dict({"student_name": "  " + "x".repeat(60)})
+	assert_eq(gs.student_name.length(), 40)
+	gs.from_dict({"student_name": 7})
+	assert_eq(gs.student_name, "")
+	GameState.reset()

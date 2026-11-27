@@ -13,7 +13,7 @@
 | Nombre | Archivo | Para qué |
 |---|---|---|
 | `Events` | `autoload/events.gd` | Bus de señales globales (`locale_changed`) |
-| `GameState` | `autoload/game_state.gd` | Estado persistente: volumen e idioma. Emite `changed` al modificarse. El progreso de misiones irá aquí o en `progress.gd` (M3) |
+| `GameState` | `autoload/game_state.gd` | Estado persistente: volumen, idioma y nombre del alumno; además (sin guardar) la misión y la semilla del próximo intento. Emite `changed` al modificarse. El progreso de misiones irá aquí o en `progress.gd` (M3) |
 | `SaveSystem` | `autoload/save_system.gd` | Guarda `GameState` en `user://save.json` al oír `changed` (escritura atómica, versión, tolerante a corrupción). En pruebas usa `user://test_save.json` |
 | `Music` | `autoload/music.gd` | Música persistente con fundido cruzado |
 | `Online` | `autoload/online.gd` | Instancia de `OnlineClient` (cuentas por HTTP, salas por WebSocket). Del kit; se adapta en M11 |
@@ -27,16 +27,29 @@ scenes/
   ui/language_selector.tscn # OptionButton (LanguageSelector) reutilizable
   ui/pause_menu.tscn        # pausa (acción `pause`)
   ui/online_login.tscn, online_lobby.tscn   # del kit (textos aún sin traducir: M11)
-  hub/hub.tscn              # placa base de TORRE-7 (vacía en M0; zonas en M3)
-  mission/mission_shell.tscn              # M1
+  ui/name_dialog.tscn       # pide el nombre del alumno
+  hub/hub.tscn              # placa base de TORRE-7 (zonas en M3; de momento, botón a la misión de prueba)
+  mission/mission_shell.tscn, mission_content.gd   # marco común y base de los retos
+  missions/sample/          # misión de prueba: cerrojo binario
   missions/m1_workshop/ … m7_hypervisor/  # una carpeta por misión
 ```
+
+## Marco de misión
+
+- `MissionData` (`data/missions/*.tres`): id, tema, título (clave), criterios RA, escena de contenido, `Cheatsheet` y `GradingWeights`.
+- El hub pone `GameState.current_mission` y abre `scenes/mission/mission_shell.tscn`. La semilla sale de `GameState.take_seed()` (la impuesta en `pending_seed`, o una al azar).
+- `MissionShell` crea la escena de contenido, que hereda de `MissionContent` y implementa `_build()` (con `phase` y `exercise_seed`), `check() -> ChallengeResult`, `hint_count()` y `hint(i)`.
+- Semillas por fase: ejemplo y guiado usan `ExerciseSeed.derive(semilla, "example"/"guided")`; la fase en solitario usa la semilla del intento, que es la que va al informe. Así el profesor reproduce exactamente lo que se puntuó.
+- `ChallengeResult`: `correct`, `total` y `mistakes` = `[{key, args}]`; el texto se traduce al mostrarlo (`ChallengeResult.message_of`). Cada clave de fallo dice qué falla y cómo arreglarlo.
+- Al acabar: `Grading.grade()` → `AttemptReport.save()` → panel de resultado (repetir con otra semilla, abrir la carpeta de informes, volver al mapa).
 
 ## Lógica pura (`scripts/`, con tests)
 
 | Archivo | Hito | Qué hace |
 |---|---|---|
 | `exercise_seed.gd` | M1 | RNG sembrado; misma semilla → mismo ejercicio |
+| `challenge_result.gd`, `mission_data.gd`, `cheatsheet.gd`, `grading_weights.gd` | M1 | Tipos del marco de misión |
+| `binary_lock.gd` | M1 | Cerrojo binario de la misión de prueba (se reutilizará en la misión 3) |
 | `grading.gd` | M1 | Nota 0–10 a partir de aciertos, intentos y pistas |
 | `attempt_report.gd` | M1 | Registro de intentos e informe JSON firmado con HMAC |
 | `scheduler.gd` | M2 | FIFO, RR, SJF, SRT → Gantt y tiempos de espera/retorno |
@@ -72,6 +85,10 @@ Acciones del InputMap: `pause` (Esc), `cheatsheet` (F1), `hint` (F2) y las `ui_*
 
 - Informe local (M1): JSON con código HMAC, exportable sin red.
 - Servidor (M11): `../som-mini-server`, `miniso.enguillem.es`, puerto 8470, subred `10.213.148.0/24`. Lo genérico (cuentas, correo, administración, privacidad) viene del kit; lo de carreras se sustituye por el envío de notas.
+
+## Capturas sin jugar
+
+Los scripts lanzados con `-s` no compilan si usan tipos que dependen de autoloads (`MissionShell`, `GameState`…): usar `Object`, `get()` y `call()`.
 
 ## Verificación
 

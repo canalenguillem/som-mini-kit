@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Cheatsheet" format=3]
+
+[ext_resource type="Script" path="res://scripts/cheatsheet.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+title_key = "CHEAT_BINARY_TITLE"
+body_key = "CHEAT_BINARY_BODY"
