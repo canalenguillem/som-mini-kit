@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M1 — Marco de misión** (código y pruebas hechos; falta la validación de Guillem).
+Hito actual: **M2 — Demo jugable: misión 4 (planificador)** (M1 validado).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -24,7 +24,7 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] Nombre del alumno: se pide al pulsar Jugar la primera vez y se cambia en Opciones; sale en el informe
 - [x] Misión de prueba (cerrojo binario, `scenes/missions/sample/`) accesible desde el hub para probar el marco
 - [x] Textos en ca/es/en
-- [ ] **Guillem:** hacer la misión de prueba entera (ver «Qué probar» abajo)
+- [x] **Guillem:** hacer la misión de prueba entera (ver «Qué probar» abajo)
 
 ### Qué probar (M1)
 1. Jugar → escribe tu nombre → Missió de prova.
