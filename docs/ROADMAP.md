@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M1 — Marco de misión** (M0 terminado; falta la validación de Guillem).
+Hito actual: **M1 — Marco de misión** (M0 terminado y validado).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -12,8 +12,8 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] Menú principal que abre un hub vacío
 - [x] `CLAUDE.md`, `docs/GDD.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`
 - [x] `./tools/check.sh` en verde
-- [ ] Repositorio conectado a `origin` y subido (`git push -u origin main`)
-- [ ] **Guillem:** abrir el juego, cambiar de idioma en el menú y en opciones, cerrar y volver a abrir (debe recordar el idioma), entrar al hub y volver
+- [x] Repositorio conectado a `origin` y subido (`git push -u origin main`)
+- [x] **Guillem:** abrir el juego, cambiar de idioma en el menú y en opciones, cerrar y volver a abrir (debe recordar el idioma), entrar al hub y volver
 
 ## M1 — Marco de misión
 - [ ] `exercise_seed.gd`: RNG sembrado (tests: misma semilla, mismo ejercicio)
