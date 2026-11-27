@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_panel.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/language_selector.tscn" id="3"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -21,21 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.12, 0.16, 1)
 
-[node name="Money" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -320.0
-offset_top = 16.0
-offset_right = -24.0
-offset_bottom = 56.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_font_sizes/font_size = 28
-text = "Monedas: 0"
-horizontal_alignment = 2
-
 [node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -53,42 +39,60 @@ theme_override_constants/separation = 14
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.75, 0.2, 1)
 theme_override_font_sizes/font_size = 72
-text = "Mini SO"
+text = "GAME_TITLE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Center/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 26
+text = "GAME_SUBTITLE"
 horizontal_alignment = 1
 
 [node name="Gap" type="Control" parent="Center/Menu"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
-[node name="Quick" type="Button" parent="Center/Menu"]
+[node name="Play" type="Button" parent="Center/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Carrera rápida"
-
-[node name="Championship" type="Button" parent="Center/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Campeonato"
+text = "MENU_PLAY"
 
 [node name="Online" type="Button" parent="Center/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Online"
-
-[node name="Garage" type="Button" parent="Center/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "Garaje"
+text = "MENU_ONLINE"
 
 [node name="Options" type="Button" parent="Center/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Opciones"
+text = "MENU_OPTIONS"
 
 [node name="Quit" type="Button" parent="Center/Menu"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Salir"
+text = "MENU_QUIT"
+
+[node name="LanguageCorner" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -340.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 60.0
+grow_horizontal = 0
+alignment = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="LanguageCorner"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "MENU_LANGUAGE"
+
+[node name="Selector" parent="LanguageCorner" instance=ExtResource("3")]
+layout_mode = 2
 
 [node name="OptionsLayer" type="CenterContainer" parent="."]
 layout_mode = 1
