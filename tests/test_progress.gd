@@ -99,6 +99,8 @@ func test_el_marco_apunta_el_intento() -> void:
 	await wait_physics_frames(1)
 	shell.next_phase()
 	shell.next_phase()
+	var room: ArcadeRoom = shell.content as ArcadeRoom
+	room.play_all()
 	shell.hand_in()
 	assert_eq(Progress.attempts(GameState.progress, "m4_states"), 1)
 	for f: String in DirAccess.get_files_at("user://test_reports"):

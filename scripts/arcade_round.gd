@@ -52,10 +52,25 @@ static func evaluate(exercise: Dictionary, answer: Dictionary) -> ChallengeResul
 			r.correct += 1
 		else:
 			wrong += 1
-	var messages: Array[Dictionary] = []
 	if wrong > 0:
-		messages.append({"key": "ARCADE_WRONG_DECISIONS", "args": {"n": wrong, "total": s.decision_cycles().size()}})
-	# --- Tabla corta: Servicio y Espera (la cuadrícula ya es la correcta) ---
+		r.add_mistake("ARCADE_WRONG_DECISIONS", {"n": wrong, "total": s.decision_cycles().size()})
+	var t: ChallengeResult = evaluate_table(exercise, answer)
+	r.total += t.total
+	r.correct += t.correct
+	for m: Dictionary in t.mistakes:
+		if r.mistakes.size() < MAX_MESSAGES:
+			r.mistakes.append(m)
+	# Las decisiones ya están tomadas: solo se puede mejorar si falla algo de la tabla
+	r.can_improve = t.total - t.correct > 0
+	return r
+
+
+## Solo la tabla corta del final: Servicio y Espera de cada jugador y la espera media.
+static func evaluate_table(exercise: Dictionary, answer: Dictionary) -> ChallengeResult:
+	var s: Schedule = GanttExercise.solve(exercise)
+	var r := ChallengeResult.new()
+	var processes: Array = exercise["processes"]
+	var messages: Array[Dictionary] = []
 	var table: Array = answer.get("table", [])
 	var waits: Array = []
 	var waits_ok: bool = true
@@ -94,6 +109,4 @@ static func evaluate(exercise: Dictionary, answer: Dictionary) -> ChallengeResul
 		messages.append({"key": key, "args": {"n": processes.size()}})
 	for m: Dictionary in messages:
 		r.add_mistake(str(m["key"]), m["args"])
-	# Las decisiones ya están tomadas: solo se puede mejorar si falla algo de la tabla
-	r.can_improve = r.total - r.correct > wrong
 	return r

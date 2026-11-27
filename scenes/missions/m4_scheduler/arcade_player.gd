@@ -4,6 +4,8 @@ extends Control
 ## barra de paciencia y nombre. Camina entre zonas con tween; si se puede elegir, brilla y se toca.
 
 signal pressed
+## Se ha soltado al jugador tras arrastrarlo; `point` en coordenadas del padre (el salón).
+signal dropped(point: Vector2)
 
 const POSE_PATH: String = "res://assets/kenney_toon_characters/%s/%s.png"
 const WALK_FRAMES: int = 8
@@ -21,11 +23,25 @@ var show_patience: bool = true
 var tappable: bool = false:
 	set(value):
 		tappable = value
-		mouse_filter = Control.MOUSE_FILTER_STOP if value else Control.MOUSE_FILTER_IGNORE
-		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if value else Control.CURSOR_ARROW
+		_update_mouse()
 		queue_redraw()
+
+
+func _update_mouse() -> void:
+	var active: bool = tappable or draggable
+	mouse_filter = Control.MOUSE_FILTER_STOP if active else Control.MOUSE_FILTER_IGNORE
+	mouse_default_cursor_shape = (Control.CURSOR_DRAG if draggable else Control.CURSOR_POINTING_HAND) \
+			if active else Control.CURSOR_ARROW
 var pose: String = "idle"
 var dimmed: bool = false
+var bubble: String = ""  ## aviso encima de la cabeza («¡Tengo hambre!»…)
+## Se puede arrastrar con el ratón o el dedo.
+var draggable: bool = false:
+	set(value):
+		draggable = value
+		_update_mouse()
+var dragging: bool = false
+var _drag_offset: Vector2
 
 var _walking: bool = false
 var _walk_time: float = 0.0
@@ -49,6 +65,8 @@ func _texture(name: String) -> Texture2D:
 
 ## Lleva al jugador a `target` (esquina superior izquierda). Sin animar si `instant`.
 func walk_to(target: Vector2, instant: bool = false) -> void:
+	if dragging:
+		return
 	if _tween != null:
 		_tween.kill()
 	if instant or not is_inside_tree() or position.distance_to(target) < 2.0:
@@ -72,11 +90,28 @@ func _process(delta: float) -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	if tappable and event is InputEventMouseButton:
+	if event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 		var mb := event as InputEventMouseButton
-		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
-			pressed.emit()
+		if mb.pressed:
+			if draggable:
+				dragging = true
+				_drag_offset = mb.position
+				if _tween != null:
+					_tween.kill()
+				_walking = false
+				z_index = 10
+			elif tappable:
+				pressed.emit()
 			accept_event()
+		elif dragging:
+			dragging = false
+			z_index = 0
+			dropped.emit(position + mb.position)
+			accept_event()
+	elif event is InputEventMouseMotion and dragging:
+		position += (event as InputEventMouseMotion).position - _drag_offset
+		queue_redraw()
+		accept_event()
 
 
 func _draw() -> void:
@@ -106,6 +141,14 @@ func _draw() -> void:
 		draw_rect(bar, Color(0, 0, 0, 0.5))
 		var col := Color(1.0 - patience, 0.35 + 0.55 * patience, 0.3)
 		draw_rect(Rect2(bar.position, Vector2(bar.size.x * clampf(patience, 0.0, 1.0), bar.size.y)), col)
+	# Aviso
+	if bubble != "":
+		var bw: float = font.get_string_size(bubble, HORIZONTAL_ALIGNMENT_LEFT, -1, 13).x + 12.0
+		var br := Rect2(feet.x - bw / 2.0, top - 34.0, bw, 18.0)
+		draw_rect(br, Color(1, 1, 1, 0.92))
+		draw_colored_polygon(PackedVector2Array([br.get_center() + Vector2(-5, 9), br.get_center() + Vector2(5, 9),
+				br.get_center() + Vector2(0, 15)]), Color(1, 1, 1, 0.92))
+		draw_string(font, br.position + Vector2(6, 14), bubble, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(0.15, 0.1, 0.2))
 	# Nombre
 	var fs: int = 14
 	var w: float = font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x

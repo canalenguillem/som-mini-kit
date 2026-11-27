@@ -16,7 +16,7 @@ const TRANSLATED_SCENES: Array[String] = [
 	"res://scenes/mission/mission_shell.tscn",
 	"res://scenes/missions/sample/binary_switches.tscn",
 	"res://scenes/missions/m4_scheduler/gantt_mission.tscn",
-	"res://scenes/missions/m4_scheduler/states_quiz.tscn",
+	"res://scenes/missions/m4_scheduler/arcade_room.tscn",
 ]
 
 

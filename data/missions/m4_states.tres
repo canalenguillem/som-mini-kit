@@ -10,6 +10,11 @@ id = "m4_states"
 topic = 4
 title_key = "M4_STATES_TITLE"
 criteria = PackedStringArray("RA1 c)", "RA4 c)")
-content_scene = "res://scenes/missions/m4_scheduler/states_quiz.tscn"
+content_scene = "res://scenes/missions/m4_scheduler/arcade_room.tscn"
 cheatsheet = ExtResource("2")
 weights = ExtResource("3")
+params = {
+"algorithm": "RR",
+"io": true,
+"warmup": true
+}

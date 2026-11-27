@@ -127,38 +127,13 @@ CHEAT_T4_BODY,"[b]Primer la graella, després la taula.[/b] Els cicles comencen 
 GANTT_NARR_IDLE,la CPU s'atura: la cua és buida.,la CPU se queda parada: la cola está vacía.,the CPU sits idle: the queue is empty.
 GANTT_WRONG_CELL_ONE,Tens 1 cicle malament a la graella:,Tienes 1 ciclo mal en la cuadrícula:,You have 1 cycle wrong in the grid:
 M4_STATES_TITLE,Escalfament: estats del procés,Calentamiento: estados del proceso,Warm-up: process states
-ST_TASK,Quina transició del diagrama d'estats passa a cada situació?,¿Qué transición del diagrama de estados ocurre en cada situación?,Which transition of the state diagram happens in each situation?
-ST_CHOOSE,— Tria —,— Elige —,— Choose —
 ST_T_NEW_READY,Nou → Preparat,Nuevo → Preparado,New → Ready
 ST_T_READY_RUNNING,Preparat → En execució,Preparado → En ejecución,Ready → Running
 ST_T_RUNNING_READY,En execució → Preparat,En ejecución → Preparado,Running → Ready
 ST_T_RUNNING_BLOCKED,En execució → Bloquejat,En ejecución → Bloqueado,Running → Blocked
 ST_T_BLOCKED_READY,Bloquejat → Preparat,Bloqueado → Preparado,Blocked → Ready
 ST_T_RUNNING_TERMINATED,En execució → Acabat,En ejecución → Terminado,Running → Terminated
-ST_T_BLOCKED_RUNNING,Bloquejat → En execució,Bloqueado → En ejecución,Blocked → Running
-ST_SIT_CREATED,Obres l'editor de textos: el sistema crea el procés i l'admet.,Abres el editor de textos: el sistema crea el proceso y lo admite.,You open the text editor: the system creates the process and admits it.
-ST_SIT_LAUNCHED,Fas doble clic al navegador. El sistema acaba de crear el procés i el deixa a punt per a la CPU.,Haces doble clic en el navegador. El sistema acaba de crear el proceso y lo deja listo para la CPU.,You double-click the browser. The system has just created the process and gets it ready for the CPU.
-ST_SIT_CHOSEN,El procés era el primer de la cua i el planificador el tria.,El proceso era el primero de la cola y el planificador lo elige.,The process was first in the queue and the scheduler picks it.
-ST_SIT_DISPATCHED,La CPU queda lliure i el distribuïdor li dona la CPU a aquest procés.,La CPU queda libre y el despachador le da la CPU a este proceso.,The CPU is free and the dispatcher gives it to this process.
-ST_SIT_QUANTUM,Round Robin: al procés se li acaba el quantum i encara no ha acabat.,Round Robin: al proceso se le acaba el quantum y todavía no ha terminado.,Round Robin: the process's quantum runs out and it hasn't finished yet.
-ST_SIT_QUANTUM_AGAIN,El reproductor de música ha gastat el seu torn de CPU i li toca a un altre.,El reproductor de música ha gastado su turno de CPU y le toca a otro.,The music player has used up its CPU turn and it's someone else's go.
-ST_SIT_DISK,El procés demana llegir un fitxer del disc.,El proceso pide leer un archivo del disco.,The process asks to read a file from the disk.
-ST_SIT_KEY,El programa es queda esperant que premis una tecla.,El programa se queda esperando a que pulses una tecla.,The program waits for you to press a key.
-ST_SIT_NETWORK,El navegador demana una pàgina web i espera la resposta de la xarxa.,El navegador pide una página web y espera la respuesta de la red.,The browser asks for a web page and waits for the network to answer.
-ST_SIT_DISK_DONE,El disc ja li ha donat les dades que demanava.,El disco ya le ha dado los datos que pedía.,The disk has delivered the data it asked for.
-ST_SIT_KEY_DONE,Per fi prems la tecla que el programa esperava.,Por fin pulsas la tecla que el programa esperaba.,You finally press the key the program was waiting for.
-ST_SIT_LAST,El procés executa la seva última instrucció.,El proceso ejecuta su última instrucción.,The process runs its last instruction.
-ST_SIT_EXIT,Tanques la calculadora: el procés acaba i el sistema allibera la seva memòria.,Cierras la calculadora: el proceso acaba y el sistema libera su memoria.,You close the calculator: the process ends and the system frees its memory.
-ST_MISTAKE_NEW_READY,Situació {n}: un procés acabat de crear primer passa a Preparat (el sistema l'admet).,Situación {n}: un proceso recién creado pasa primero a Preparado (el sistema lo admite).,Situation {n}: a newly created process first goes to Ready (the system admits it).
-ST_MISTAKE_READY_RUNNING,"Situació {n}: quan el planificador el tria, el procés passa de Preparat a En execució.","Situación {n}: cuando el planificador lo elige, el proceso pasa de Preparado a En ejecución.","Situation {n}: when the scheduler picks it, the process goes from Ready to Running."
-ST_MISTAKE_RUNNING_READY,"Situació {n}: si se li acaba el torn sense acabar, torna a Preparat i fa cua.","Situación {n}: si se le acaba el turno sin terminar, vuelve a Preparado y hace cola.","Situation {n}: if its turn ends before it finishes, it goes back to Ready and queues."
-ST_MISTAKE_RUNNING_BLOCKED,"Situació {n}: si espera alguna cosa (disc, teclat, xarxa), deixa la CPU i queda Bloquejat.","Situación {n}: si espera algo (disco, teclado, red), suelta la CPU y queda Bloqueado.","Situation {n}: if it waits for something (disk, keyboard, network), it leaves the CPU and becomes Blocked."
-ST_MISTAKE_BLOCKED_READY,"Situació {n}: quan ja té el que esperava, passa de Bloquejat a Preparat.","Situación {n}: cuando ya tiene lo que esperaba, pasa de Bloqueado a Preparado.","Situation {n}: once it has what it was waiting for, it goes from Blocked to Ready."
-ST_MISTAKE_RUNNING_TERMINATED,"Situació {n}: quan acaba, passa d'En execució a Acabat.","Situación {n}: cuando acaba, pasa de En ejecución a Terminado.","Situation {n}: when it ends, it goes from Running to Terminated."
-ST_MISTAKE_TRAP,"Situació {n}: de Bloquejat no es passa mai directament a En execució. Quan acaba el que esperava, torna a Preparat i fa cua, com tothom.","Situación {n}: de Bloqueado nunca se pasa directamente a En ejecución. Cuando termina lo que esperaba, vuelve a Preparado y hace cola, como todo el mundo.","Situation {n}: Blocked never goes straight to Running. When what it waited for is done, it goes back to Ready and queues like everyone else."
-ST_MISTAKE_EMPTY,Situació {n}: falta triar la transició.,Situación {n}: falta elegir la transición.,Situation {n}: you haven't chosen a transition.
 ST_HINT_1,"Només hi ha sis fletxes: Nou→Preparat, Preparat→En execució, En execució→Preparat, En execució→Bloquejat, Bloquejat→Preparat i En execució→Acabat.","Solo hay seis flechas: Nuevo→Preparado, Preparado→En ejecución, En ejecución→Preparado, En ejecución→Bloqueado, Bloqueado→Preparado y En ejecución→Terminado.","There are only six arrows: New→Ready, Ready→Running, Running→Ready, Running→Blocked, Blocked→Ready and Running→Terminated."
-ST_HINT_2,"Si el procés espera alguna cosa (disc, teclat, xarxa), és Bloquejat. Quan la té, torna a Preparat, mai directe a la CPU.","Si el proceso espera algo (disco, teclado, red), está Bloqueado. Cuando lo tiene, vuelve a Preparado, nunca directo a la CPU.","If the process is waiting for something (disk, keyboard, network), it's Blocked. Once it has it, it goes back to Ready, never straight to the CPU."
 CHEAT_T4_STATES_TITLE,Xuleta: estats del procés,Chuleta: estados del proceso,Cheat sheet: process states
 CHEAT_T4_STATES_BODY,"[b]Nou[/b]: s'acaba de crear.\n[b]Preparat[/b]: a punt, esperant torn de CPU (a la cua).\n[b]En execució[/b]: té la CPU. És l'únic estat en què el procés avança.\n[b]Bloquejat[/b]: espera alguna cosa (disc, teclat, xarxa). No vol CPU.\n[b]Acabat[/b]: ha acabat; el sistema allibera els seus recursos.\n\n[b]Les sis fletxes[/b]\nNou → Preparat: el sistema l'admet\nPreparat → En execució: el planificador el tria\nEn execució → Preparat: fi del quantum\nEn execució → Bloquejat: demana E/S\nBloquejat → Preparat: l'E/S acaba\nEn execució → Acabat: acaba\n\n[b]Compte![/b] De Bloquejat mai no es passa directe a En execució.","[b]Nuevo[/b]: se acaba de crear.\n[b]Preparado[/b]: listo, esperando turno de CPU (en la cola).\n[b]En ejecución[/b]: tiene la CPU. Es el único estado en el que el proceso avanza.\n[b]Bloqueado[/b]: espera algo (disco, teclado, red). No quiere CPU.\n[b]Terminado[/b]: ha terminado; el sistema libera sus recursos.\n\n[b]Las seis flechas[/b]\nNuevo → Preparado: el sistema lo admite\nPreparado → En ejecución: lo elige el planificador\nEn ejecución → Preparado: fin del quantum\nEn ejecución → Bloqueado: pide E/S\nBloqueado → Preparado: la E/S termina\nEn ejecución → Terminado: termina\n\n[b]¡Ojo![/b] De Bloqueado nunca se pasa directo a En ejecución.","[b]New[/b]: just created.\n[b]Ready[/b]: waiting for a CPU turn (in the queue).\n[b]Running[/b]: has the CPU. The only state where the process makes progress.\n[b]Blocked[/b]: waiting for something (disk, keyboard, network). Doesn't want the CPU.\n[b]Terminated[/b]: finished; the system frees its resources.\n\n[b]The six arrows[/b]\nNew → Ready: the system admits it\nReady → Running: the scheduler picks it\nRunning → Ready: end of quantum\nRunning → Blocked: asks for I/O\nBlocked → Ready: the I/O finishes\nRunning → Terminated: it ends\n\n[b]Careful![/b] Blocked never goes straight to Running."
 GANTT_MEAN_TOOLTIP,Pots escriure la fracció: 3/4,Puedes escribir la fracción: 3/4,You can type the fraction: 3/4
@@ -170,18 +145,10 @@ ARCADE_CYCLE,Cicle {cycle},Ciclo {cycle},Cycle {cycle}
 ARCADE_QUANTUM,Partida {used} de {q},Partida {used} de {q},Turn {used} of {q}
 ARCADE_ARRIVES,arriba al {cycle},llega en el {cycle},arrives at {cycle}
 ARCADE_COL_PLAYER,Jugador,Jugador,Player
-ARCADE_DECIDE,Cal decidir: toca el jugador que ha de jugar ara a la màquina.,Hay que decidir: toca al jugador que tiene que jugar ahora en la máquina.,Decision time: tap the player who should be on the machine now.
-ARCADE_OK,Molt bé! {player} a la màquina.,¡Bien! {player} a la máquina.,Nice! {player} gets the machine.
 ARCADE_WRONG,Aquest no era.,No era ese.,Not that one.
-ARCADE_PLAYS_ANYWAY,"Juga {player}, que era a qui li tocava. Aquest error compta.","Juega {player}, que era a quien le tocaba. Ese fallo cuenta.","{player} plays, since it was their turn. That mistake counts."
-ARCADE_TRY_AGAIN,Torna-ho a provar.,Prueba otra vez.,Try again.
 ARCADE_ROUND_DONE,"Fi de la partida! La graella ja està feta. Calcula el Servei i l'Espera de cada jugador i l'espera mitjana (pots escriure la fracció, 3/4). Després, «Comprovar».","¡Fin de la partida! La cuadrícula ya está hecha. Calcula el Servicio y la Espera de cada jugador y la espera media (puedes escribir la fracción, 3/4). Después, «Comprobar».","Game over! The grid is done. Work out each player's Service and Wait and the mean wait (you can type the fraction, 3/4). Then press ""Check""."
 ARCADE_EXAMPLE_DONE,Fi de la partida. Mira com surten el Servei i l'Espera de cadascú a partir de la graella.,Fin de la partida. Mira cómo salen el Servicio y la Espera de cada uno a partir de la cuadrícula.,Game over. See how each player's Service and Wait come out of the grid.
 ARCADE_WRONG_DECISIONS,Has fallat {n} de {total} decisions.,Has fallado {n} de {total} decisiones.,You got {n} of {total} decisions wrong.
-ARCADE_HINT_FIFO,"Mira la cua: en FIFO entra sempre el primer, el que va arribar abans.","Mira la cola: en FIFO entra siempre el primero, el que llegó antes.","Look at the queue: in FIFO the first one, who arrived earliest, always goes in."
-ARCADE_HINT_RR,"En Round Robin entra el primer de la cua. Qui esgota les seves partides va al final, darrere dels que acaben d'arribar.","En Round Robin entra el primero de la cola. Quien agota sus partidas va al final, detrás de los que acaban de llegar.","In Round Robin the first in the queue goes in. Whoever uses up their turn goes to the end, behind those who just arrived."
-ARCADE_HINT_SJF,Compta les fitxes: entra el que en té menys. I el que juga no s'interromp.,Cuenta las fichas: entra el que tiene menos. Y el que está jugando no se interrumpe.,Count the tokens: the one with the fewest goes in. And whoever is playing isn't interrupted.
-ARCADE_HINT_SRT,"Compara fitxes: si el que arriba en té estrictament menys que les que li queden al que juga, li pren la màquina; si no, continua el mateix.","Compara fichas: si el que llega tiene estrictamente menos que las que le quedan al que juega, le quita la máquina; si no, sigue el mismo.","Compare tokens: if the newcomer has strictly fewer than the player has left, it takes the machine; otherwise the same one carries on."
 ARCADE_SIGN,★ SALA RECREATIVA TORRE-7 ★,★ SALA RECREATIVA TORRE-7 ★,★ TORRE-7 ARCADE ★
 ARCADE_WHO,Qui juga?,¿Quién juega?,Who plays?
 ARCADE_FREE,Lliure,Libre,Free
@@ -208,3 +175,43 @@ ROOM_NEW,Per fer,Sin hacer,Not done
 ROOM_BEST,Millor: {grade} · {attempts} intents,Mejor: {grade} · {attempts} intentos,Best: {grade} · {attempts} attempts
 ROOM_PLAY,Jugar,Jugar,Play
 ROOM_BEST_ONE,Millor: {grade} · 1 intent,Mejor: {grade} · 1 intento,Best: {grade} · 1 attempt
+DISP_TASK_WARMUP,"Fes de sistema operatiu: arrossega cada jugador on toca. Cada moviment és un canvi d'estat. Qui juga, ho tria el joc.",Haz de sistema operativo: arrastra a cada jugador adonde toca. Cada movimiento es un cambio de estado. Quién juega lo elige el juego.,Be the operating system: drag each player where they belong. Each move is a state change. The game picks who plays.
+DISP_INTRO,"Arrossega els jugadors: porta → cua, cua → màquina, màquina → cua, entrepans o sortida. El cicle avança quan està tot fet.","Arrastra a los jugadores: puerta → cola, cola → máquina, máquina → cola, bocadillos o salida. El ciclo avanza cuando está todo hecho.","Drag the players: door → queue, queue → machine, machine → queue, snacks or exit. The cycle moves on when everything is done."
+DISP_INTRO_WARMUP,Mira els avisos (bafarades i pantalla) i arrossega cada jugador on toca. El cicle avança quan està tot fet.,Mira los avisos (bocadillos de texto y pantalla) y arrastra a cada jugador adonde toca. El ciclo avanza cuando está todo hecho.,Watch the signs (speech bubbles and screen) and drag each player where they belong. The cycle moves on when everything is done.
+DISP_AUTO_PICK,El planificador tria {player}: Preparat → En execució.,El planificador elige a {player}: Preparado → En ejecución.,The scheduler picks {player}: Ready → Running.
+DISP_WARMUP_DONE,Partida acabada! Prem «Comprovar» per veure la nota.,¡Partida acabada! Pulsa «Comprobar» para ver la nota.,"Game over! Press ""Check"" to see your grade."
+DISP_COUNTS,Aquest error compta.,Este fallo cuenta.,This mistake counts.
+DISP_WRONG_MOVES,Has fet {n} moviments que no tocaven.,Has hecho {n} movimientos que no tocaban.,You made {n} moves that weren't right.
+DISP_SCREEN_SRT,Algú nou! L'expulsa?,¡Alguien nuevo! ¿Lo echa?,Someone new! Preempt?
+EVT_ARRIVE,Ja soc aquí!,¡Ya estoy aquí!,I'm here!
+EVT_FINISH,Sense fitxes!,¡Sin fichas!,Out of tokens!
+EVT_IO,Tinc gana!,¡Tengo hambre!,I'm hungry!
+EVT_QUANTUM,Torn acabat!,¡Turno acabado!,Turn's up!
+EVT_IO_DONE,Ja he menjat!,¡Ya he comido!,Done eating!
+DISP_SAME_PLACE,{player} ja és aquí.,{player} ya está ahí.,{player} is already there.
+DISP_ALREADY_GONE,{player} ja ha acabat i se n'ha anat.,{player} ya ha terminado y se ha ido.,{player} has finished and left.
+DISP_NOT_ARRIVED,{player} encara no ha arribat: arriba al cicle {cycle}.,{player} todavía no ha llegado: llega en el ciclo {cycle}.,{player} hasn't arrived yet: arrives in cycle {cycle}.
+DISP_TRAP,"Mai directe! De Bloquejat (entrepans) es torna a Preparat: primer a la cua, com tothom.","¡Nunca directo! De Bloqueado (bocadillos) se vuelve a Preparado: primero a la cola, como todo el mundo.","Never straight in! From Blocked (snacks) you go back to Ready: to the queue first, like everyone else."
+DISP_DOOR_FIRST_QUEUE,Qui arriba primer fa cua: Nou → Preparat.,El que llega primero hace cola: Nuevo → Preparado.,Newcomers queue first: New → Ready.
+DISP_QUEUE_ORDER,"Abans s'ha de posar a la cua {expected}. Si n'entren uns quants alhora: el nou, després el que torna d'E/S i, al final, el que surt de la màquina.","Antes tiene que ponerse en la cola {expected}. Si entran varios a la vez: el nuevo, después el que vuelve de E/S y, por último, el que sale de la máquina.","{expected} has to join the queue first. If several join at once: the newcomer, then the one back from I/O and, last, the one leaving the machine."
+DISP_FIRST_CLEAR,Primer s'ha de buidar la màquina: {player} n'ha de sortir.,Primero hay que dejar libre la máquina: {player} tiene que salir.,Free the machine first: {player} has to leave it.
+DISP_FIRST_FILL_QUEUE,"Abans de triar qui juga, posa a la cua tots els que hi entren en aquest cicle (falta {player}).","Antes de elegir quién juega, pon en la cola a todos los que entran en este ciclo (falta {player}).","Before choosing who plays, put everyone joining this cycle in the queue ({player} is missing)."
+DISP_MACHINE_BUSY,La màquina està ocupada: hi juga {player}.,La máquina está ocupada: está jugando {player}.,The machine is busy: {player} is playing.
+DISP_KEEPS_RR,{player} encara no ha esgotat el seu quantum: continua jugant.,{player} todavía no ha agotado su quantum: sigue jugando.,{player} hasn't used up its quantum yet: it keeps playing.
+DISP_KEEPS_SRT,No l'expulsa: a {player} li'n queden {left} i ningú no necessita estrictament menys.,No lo echa: a {player} le quedan {left} y nadie necesita estrictamente menos.,No preemption: {player} has {left} left and nobody needs strictly less.
+DISP_KEEPS_NONPREEMPTIVE,{player} no deixa la màquina fins que acaba (no expulsiu).,{player} no suelta la máquina hasta que termina (no expulsivo).,{player} keeps the machine until it finishes (non-preemptive).
+DISP_STILL_EATING,{player} encara menja: la seva E/S acaba abans del cicle {cycle}.,{player} todavía está comiendo: su E/S acaba antes del ciclo {cycle}.,{player} is still eating: its I/O ends before cycle {cycle}.
+DISP_STAYS_IN_QUEUE,{player} es queda a la cua esperant torn.,{player} se queda en la cola esperando turno.,{player} stays in the queue waiting for a turn.
+DISP_NOT_NOW,{player} no s'ha de moure ara.,{player} no tiene que moverse ahora.,{player} shouldn't move now.
+DISP_GOES_EXIT,"{player} s'ha quedat sense fitxes: ha acabat, cap a la sortida (En execució → Acabat).","{player} se ha quedado sin fichas: ha terminado, a la salida (En ejecución → Terminado).","{player} is out of tokens: done, to the exit (Running → Terminated)."
+DISP_GOES_SNACK,{player} demana E/S: cap a la barra d'entrepans (En execució → Bloquejat).,{player} pide E/S: a la barra de bocadillos (En ejecución → Bloqueado).,{player} asks for I/O: to the snack bar (Running → Blocked).
+DISP_GOES_QUEUE,{player} ha d'anar a la cua (Preparat).,{player} tiene que ir a la cola (Preparado).,{player} has to go to the queue (Ready).
+DISP_HINT_PENDING,En aquest cicle falta: {list},En este ciclo falta: {list},Still to do this cycle: {list}
+DISP_HINT_NOTHING,No falta res: el cicle avança sol.,No falta nada: el ciclo avanza solo.,Nothing left: the cycle moves on by itself.
+DISP_PENDING_ARRIVE,{player} arriba,llega {player},{player} arrives
+DISP_PENDING_FINISH,{player} acaba,{player} termina,{player} finishes
+DISP_PENDING_IO,{player} demana E/S,{player} pide E/S,{player} asks for I/O
+DISP_PENDING_QUANTUM,{player} esgota el quantum,{player} agota el quantum,{player} uses up its quantum
+DISP_PENDING_IO_DONE,{player} acaba l'E/S,{player} termina la E/S,{player} finishes I/O
+DISP_PENDING_PREEMPT,decidir si s'expulsa el que juga,decidir si se echa al que juega,decide whether to preempt the player
+DISP_PENDING_PICK,triar qui juga,elegir quién juega,choose who plays

@@ -5,6 +5,8 @@ extends Control
 ## ArcadeRoom le pasa el estado de cada ciclo con show_state(); los jugadores caminan solos.
 
 signal player_pressed(index: int)
+## Se ha soltado al jugador `index` en la zona `zone` ("door", "queue", "machine", "snack", "exit").
+signal player_dropped(index: int, zone: String)
 
 const CHARACTERS: Array[String] = ["femalePerson", "malePerson", "femaleAdventurer", "maleAdventurer", "robot"]
 const QUEUE_SPACING: float = 74.0
@@ -41,6 +43,7 @@ func setup(labels: PackedStringArray) -> void:
 		p.character = CHARACTERS[i % CHARACTERS.size()]
 		p.label = labels[i]
 		p.pressed.connect(func() -> void: player_pressed.emit(i))
+		p.dropped.connect(func(point: Vector2) -> void: player_dropped.emit(i, zone_at(point)))
 		add_child(p)
 		players.append(p)
 
@@ -56,8 +59,10 @@ func show_state(state: Array, instant: bool = false) -> void:
 		p.tokens = int(s.get("tokens", 0))
 		p.patience = float(s.get("patience", 1.0))
 		p.tappable = bool(s.get("tappable", false))
+		p.draggable = bool(s.get("draggable", false))
+		p.bubble = str(s.get("bubble", ""))
 		p.show_patience = zone == "queue" or zone == "machine" or zone == "snack"
-		p.dimmed = zone == "entrance"
+		p.dimmed = bool(s.get("dimmed", zone == "entrance"))
 		p.pose = _pose_for(zone, p.patience)
 		p.walk_to(spot(zone, slot) - Vector2(p.size.x / 2.0, p.size.y), instant)
 		slots[zone] = int(slots.get(zone, 0)) + 1
@@ -70,11 +75,27 @@ func _pose_for(zone: String, patience: float) -> String:
 			return "back"
 		"snack":
 			return "hold"
-		"done":
+		"done", "exit":
 			return "cheer0"
 		"queue":
 			return "think" if patience < 0.35 else "side"
 	return "idle"
+
+
+## Zona donde cae un punto del salón (por la x de los pies).
+func zone_at(point: Vector2) -> String:
+	var feet_x: float = point.x + 0.0
+	var m: Rect2 = machine_rect()
+	var counter: Rect2 = counter_rect()
+	if feet_x < 130.0:
+		return "door"
+	if feet_x < m.position.x - 6.0:
+		return "queue"
+	if feet_x <= m.end.x + 20.0:
+		return "machine"
+	if feet_x <= counter.end.x + 30.0:
+		return "snack"
+	return "exit"
 
 
 # --- Geometría del salón (todo relativo al tamaño) ---
@@ -97,7 +118,7 @@ func counter_rect() -> Rect2:
 func spot(zone: String, slot: int) -> Vector2:
 	var feet_y: float = size.y - 6.0
 	match zone:
-		"entrance":
+		"entrance", "door":
 			return Vector2(34.0 + slot * 40.0, feet_y - 6.0)
 		"queue":
 			return Vector2(machine_rect().position.x - 40.0 - slot * QUEUE_SPACING, feet_y)
@@ -105,7 +126,7 @@ func spot(zone: String, slot: int) -> Vector2:
 			return Vector2(machine_rect().get_center().x, feet_y)
 		"snack":
 			return Vector2(counter_rect().position.x + 40.0 + slot * 56.0, feet_y)
-		"done":
+		"done", "exit":
 			return Vector2(size.x - 40.0 - slot * 46.0, feet_y)
 	return Vector2(size.x / 2.0, feet_y)
 

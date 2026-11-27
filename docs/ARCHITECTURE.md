@@ -31,7 +31,7 @@ scenes/
   hub/hub.tscn, board_view.gd  # placa base de TORRE-7: 7 zonas (ZoneData) y panel de salas
   mission/mission_shell.tscn, mission_content.gd   # marco común y base de los retos
   missions/sample/          # misión de prueba: cerrojo binario
-  missions/m4_scheduler/    # gantt_grid (cuadrícula pintable), gantt_mission, states_quiz
+  missions/m4_scheduler/    # arcade_room (salón: arcade_hall + arcade_player), gantt_grid y gantt_mission (modo examen)
   missions/m1_workshop/ … m7_hypervisor/  # una carpeta por misión
 ```
 
@@ -57,7 +57,8 @@ scenes/
 | `attempt_report.gd` | M1 | Registro de intentos e informe JSON firmado con HMAC |
 | `scheduler.gd`, `schedule.gd` | M2 | FIFO, RR (con E/S), SJF, SRT en ciclos desde 1 → cuadrícula, colas, motivo de cada ciclo, tiempos y medias truncadas |
 | `gantt_exercise.gd` | M2 | Genera ejercicios de planificación y corrige cuadrícula y tabla (error arrastrado) |
-| `process_states.gd` | M2 | Calentamiento: situaciones y transiciones del diagrama de estados |
+| `arcade_round.gd` | M2 | Sala recreativa: nombres de los jugadores y corrección de la tabla corta (Servicio, Espera, media) |
+| `dispatch_round.gd` | M2 | Salón con arrastres: movimientos pendientes de cada ciclo (salidas, entradas en orden, quién juega) y validación de cada arrastre con su porqué |
 | `number_systems.gd` | M6 | Binario, hexadecimal, suma, ASCII, TB/TiB, descargas |
 | `memory.gd` | M7 | Ajustes de particiones, fragmentación, paginación |
 | `permissions.gd`, `raid.gd`, `paths.gd` | M8 | rwx/octal, RAID, rutas |

@@ -1,5 +1,5 @@
 extends GutTest
-## Sala recreativa dentro del marco: partida con decisiones, tabla corta y nota.
+## Salón recreativo con arrastres dentro del marco.
 
 const DIR: String = "user://test_reports"
 const SEED: int = 123456
@@ -17,7 +17,7 @@ func _open(id: String) -> void:
 	add_child_autofree(shell)
 	await wait_physics_frames(1)
 	room().step_interval = 0.0
-	room().example_pause = 0.0
+	room().example_interval = 0.0
 
 
 func after_each() -> void:
@@ -33,92 +33,82 @@ func room() -> ArcadeRoom:
 	return shell.content as ArcadeRoom
 
 
-func _right(c: int) -> int:
-	return room().solution.timeline[c - 1]
+func _to_solo() -> void:
+	shell.next_phase()
+	shell.next_phase()
+	room().step_interval = 0.0
 
 
-func _wrong(c: int) -> int:
-	for i: int in room().solution.candidates(c):
-		if i != _right(c):
-			return i
-	return _right(c)
-
-
-func test_las_salas_usan_la_sala_recreativa() -> void:
-	for id: String in ["m4_fifo", "m4_rr", "m4_rr_io", "m4_sjf", "m4_srt"]:
+func test_todas_las_salas_usan_el_salon() -> void:
+	for id: String in ["m4_states", "m4_fifo", "m4_rr", "m4_rr_io", "m4_sjf", "m4_srt"]:
 		await _open(id)
 		assert_true(shell.content is ArcadeRoom, id)
 		shell.queue_free()
 		await wait_physics_frames(1)
 
 
-func test_no_se_puede_comprobar_hasta_acabar_la_partida() -> void:
-	await _open("m4_rr")
-	shell.next_phase()
-	assert_true(shell._check.disabled)
-	room().play_all(_right)
+func test_partida_perfecta_y_tabla_saca_un_10() -> void:
+	await _open("m4_rr_io")
+	_to_solo()
+	assert_true(shell._check.disabled, "hasta que acaba la partida no se comprueba")
+	room().play_all()
 	assert_true(room().round_over)
 	assert_false(shell._check.disabled)
-	assert_true(room()._table.visible)
-
-
-func test_en_el_guiado_un_fallo_no_avanza() -> void:
-	await _open("m4_sjf")
-	shell.next_phase()
-	room().step_interval = 0.0
-	while not room().waiting_decision and not room().round_over:
-		room()._step()
-	assert_true(room().waiting_decision)
-	var c: int = room().cycle
-	room().pick(_wrong(c))
-	assert_true(room().waiting_decision, "hay que elegir bien para seguir")
-	assert_eq(room().cycle, c)
-	assert_string_contains(shell._feedback.text, "•")
-	room().pick(_right(c))
-	assert_false(room().waiting_decision and room().cycle == c)
-
-
-func test_en_solitario_el_fallo_cuenta_y_juega_el_que_tocaba() -> void:
-	await _open("m4_srt")
-	shell.next_phase()
-	shell.next_phase()
-	room().step_interval = 0.0
-	var first: int = room().solution.decision_cycles()[0]
-	room().play_all(func(c: int) -> int: return _wrong(c) if c == first else _right(c))
-	assert_true(room().round_over)
-	assert_eq(int(room().picks[first]), _wrong(first))
-	var ans: Dictionary = ArcadeRound.solution_answer(room().exercise)
-	room().set_table(ans)
-	shell.check()
-	assert_true(shell._result.visible)
-	assert_lt(shell.grade, 10.0)
-	assert_gt(shell.grade, 5.0)
-
-
-func test_partida_perfecta_saca_un_10() -> void:
-	await _open("m4_rr_io")
-	shell.next_phase()
-	shell.next_phase()
-	room().step_interval = 0.0
-	room().play_all(_right)
 	room().set_table(ArcadeRound.solution_answer(room().exercise))
 	shell.check()
 	assert_almost_eq(shell.grade, 10.0, 0.001)
-	var report: Dictionary = AttemptReport.load_file(shell.report_path)
-	assert_eq(str(report["mission"]), "m4_rr_io")
+
+
+func test_un_arrastre_equivocado_cuenta_y_no_mueve() -> void:
+	await _open("m4_fifo")
+	_to_solo()
+	var d: DispatchRound = room().round_state
+	assert_false(room().move(0, DispatchRound.MACHINE), "de la puerta a la máquina no")
+	assert_eq(d.zone[0], DispatchRound.DOOR)
+	assert_eq(d.errors, 1)
+	assert_string_contains(shell._feedback.text, "•")
+	assert_true(room().move(0, DispatchRound.QUEUE))
+	assert_string_contains(shell._feedback.text, "✓")
+	room().play_all()
+	room().set_table(ArcadeRound.solution_answer(room().exercise))
+	shell.check()
+	assert_true(shell._result.visible)
+	assert_lt(shell.grade, 10.0)
+
+
+func test_en_el_guiado_los_fallos_no_cuentan_y_media_partida_viene_hecha() -> void:
+	await _open("m4_sjf")
+	shell.next_phase()
+	room().step_interval = 0.0
+	assert_gt(room().round_state.cycle, 1, "la primera mitad viene jugada")
+	room().move(0, DispatchRound.SNACK)
+	assert_eq(room().round_state.errors, 0)
+
+
+func test_calentamiento_sin_tabla() -> void:
+	await _open("m4_states")
+	assert_true(room().warmup)
+	_to_solo()
+	room().play_all()
+	assert_true(room().round_over)
+	assert_false(room()._table.visible)
+	shell.check()
+	assert_almost_eq(shell.grade, 10.0, 0.001)
 
 
 func test_el_ejemplo_se_juega_solo() -> void:
 	await _open("m4_fifo")
-	room().play_all(_right)
+	shell.start_phase(MissionContent.Phase.EXAMPLE)  # otra vez, ya sin pausas entre movimientos
 	assert_true(room().round_over)
-	assert_false((room()._inputs[0]["wait"] as LineEdit).editable)
 	assert_ne((room()._inputs[0]["wait"] as LineEdit).text, "")
 
 
-func test_la_cuadricula_se_dibuja_con_la_partida() -> void:
+func test_soltar_en_el_salon_elige_la_zona() -> void:
 	await _open("m4_fifo")
-	shell.next_phase()
-	assert_true(room()._grid.revealed < room().solution.cycles())
-	room().play_all(_right)
-	assert_eq(room()._grid.revealed, -1)
+	var hall: ArcadeHall = room()._hall
+	hall.size = Vector2(1200, 260)
+	assert_eq(hall.zone_at(Vector2(40, 200)), "door")
+	assert_eq(hall.zone_at(Vector2(hall.machine_rect().position.x - 60, 200)), "queue")
+	assert_eq(hall.zone_at(Vector2(hall.machine_rect().get_center().x, 200)), "machine")
+	assert_eq(hall.zone_at(Vector2(hall.counter_rect().get_center().x, 200)), "snack")
+	assert_eq(hall.zone_at(Vector2(1180, 200)), "exit")
