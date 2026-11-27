@@ -1,109 +1,97 @@
 # GDD — Mini SO
 
+## Qué es
+
+Juego educativo para el alumnado de 1.º de CFGM SMR, módulo **0222 Sistemas Operativos Monopuesto**. **7 misiones, una por tema** del cuaderno del profesor. Cada misión se corrige sola, da una nota de 0 a 10 ligada a los criterios del RD 1691/2007 y el profesor puede ver los resultados.
+
+No es un juego de acción con preguntas pegadas: cada misión es un puzle interactivo cuya mecánica **es** el contenido del tema (construir un Gantt, traducir direcciones, fijar permisos…). De Mini Bólidos y Mini Fútbol se reutilizan la infraestructura y el estilo de menús, no la jugabilidad.
+
 ## Concepto
 
-Carreras arcade de coches en miniatura con vista cenital. Partidas cortas (2-3 min por carrera), control inmediato y circuitos temáticos con personalidad. Ganas dinero en las carreras y lo gastas en el garaje para mejorar el coche, lo que te permite ganar en circuitos más difíciles.
+El alumno es un técnico de taller que entra, convertido en un pequeño programa con privilegios de núcleo, dentro de un ordenador averiado, **TORRE-7**. Cada zona del ordenador es un tema; repararla es superar su misión.
 
-Referencias: *Micro Machines V3* (escenarios, cámara, caos) y *Mini Motor Racing* (garaje, mejoras, progresión por campeonatos).
+- **Hub:** mapa cenital de la placa base, con los buses como pasillos y 7 zonas (bloqueada, abierta, superada). Se desbloquean en el orden del cuaderno.
+- **Tres fases por misión**, como en el cuaderno: (1) ejemplo resuelto animado, (2) guiado con parte de la respuesta ya puesta, (3) práctica en solitario. **Solo la fase 3 puntúa.**
+- **Chuleta siempre a mano** (F1 o botón): la página de referencia del tema. Consultarla no penaliza.
+- **Pistas** (F2 o botón): sí restan (ver Evaluación).
+- **Semilla:** los datos de cada ejercicio salen de un `RandomNumberGenerator` sembrado. Misma semilla, mismo ejercicio. Cada alumno recibe datos distintos y el profesor puede reproducir cualquier intento.
+- **Idioma:** catalán por defecto; castellano e inglés. Selector en el menú principal y en opciones; se guarda y se aplica sin reiniciar. Vocabulario de las ediciones catalana y castellana del cuaderno; el inglés se traduce a partir de ellas.
+- **Tono:** cercano y directo, de tú, como el cuaderno. Al fallar se explica **qué falla y cómo arreglarlo**, nunca solo «incorrecto».
+- **Duración:** unos 15–20 minutos por misión (una parte de una sesión de clase).
+- **Arte:** packs CC0 de Kenney.
 
-## Pilares
+## Temario
 
-1. **Se controla bien en 10 segundos.** Acelerar, girar y derrapar se sienten bien desde el primer momento.
-2. **Cada tema se juega distinto.** El Oeste no es la Jungla con otra textura: cambian las superficies, los obstáculos y el trazado.
-3. **Progresión visible.** Cada mejora comprada se nota en la siguiente carrera.
-
-## Bucle principal
-
-```
-Elegir carrera → Correr (3 vueltas, 4 coches) → Premio en monedas → Garaje: mejorar → Siguiente carrera
-```
-
-## Modos
-
-| Modo | Hito | Descripción |
+| Tema | Contenidos clave | Criterios |
 |---|---|---|
-| Carrera rápida | M3 | Cualquier pista desbloqueada, sin premio |
-| Campeonato | M6 | 4 pistas seguidas (v1: la "Copa Salvaje" con las 2 del Oeste y las 2 de la Jungla, porque hay 2 pistas por tema), puntos 10/6/3/1, premio final 2000/1200/600/200 por puesto. Sus pistas se juegan aunque no estén desbloqueadas |
-| Contrarreloj | Opcional | Solo, con fantasma de la mejor vuelta |
-| Multijugador local | Opcional | 2 jugadores en pantalla compartida (teclado + mando) |
-| Online | M8-M10 | Carreras de 5 jugadores reales en un servidor propio, con cuentas. Ver `docs/ONLINE.md` |
+| 1. Qué es un sistema informático | Hardware, software, firmware; componentes y buses (datos, direcciones, control); RAM frente a disco; BIOS, EPROM, CMOS; las seis tareas del SO | RA1 a) |
+| 2. Cómo es por dentro un SO | Capas (hardware, núcleo, intérprete, interfaz, aplicaciones); modo privilegiado y modo usuario; llamadas al sistema; interrupciones; CLI y GUI; clasificación de SO | RA2 a), b), i) · RA3 a) |
+| 3. Los números del ordenador | Binario (chuleta 128…1), hexadecimal, byte, suma binaria, ASCII, TB frente a TiB, tiempo de descarga | RA1 b) |
+| 4. Gestión de procesos | Programa/proceso/hilo, PCB, cambio de contexto, estados, planificador y despachador, FIFO, Round Robin, SJF, SRT, tiempos de espera y retorno | RA1 c) · RA4 c) |
+| 5. Gestión de la memoria | Jerarquía, direcciones virtuales y físicas, particiones contiguas y fragmentación, paginación, memoria virtual | RA2 a) · RA4 e) |
+| 6. Sistemas de archivos | Rutas, FAT32/NTFS/ext4, journaling, atributos, permisos rwx y octal, RAID | RA1 d)–g) |
+| 7. Máquinas virtuales | Hipervisor tipo 1 y 2, VirtualBox, crear VM, modos de red, integración, instantáneas, rendimiento | RA5 a)–g) |
 
-## Reglas de carrera
+## Las 7 misiones
 
-- 4 coches: jugador + 3 IA.
-- 3 vueltas por defecto (configurable en `TrackData`).
-- Cuenta atrás de 3 s; arrancar antes de tiempo no penaliza (versión 1).
-- Las vueltas se validan con checkpoints en orden: no hay atajos que salten checkpoints.
-- Si un coche se queda atascado o se sale del mapa, reaparece en el último checkpoint tras 3 s (o al pulsar `reset`).
-- Premios: 1º 500, 2º 300, 3º 150, 4º 50 monedas, multiplicados por `TrackData.reward_mult`.
+Cada misión se compone de varios retos cortos.
 
-## Coches
+### M1. El taller (tema 1)
+- Montar la placa base arrastrando CPU, RAM, disco, fuente, etc. a su zócalo.
+- Clasificar objetos como sistema informático o no (router, cajero, martillo, calculadora, libro…), y elementos como hardware, software o firmware.
+- Conectar cada bus con lo que transporta (datos: qué; direcciones: dónde; control).
+- Ordenar los pasos del arranque de la BIOS; decidir qué vive en EPROM y qué en CMOS; RAM frente a disco.
+- **Corrección:** aciertos por elemento. Aprobado: placa completa y ≥ 80 % de clasificaciones.
 
-Versión 1 con 3 coches. Se compran en el garaje.
+### M2. La torre de capas (tema 2)
+- Ordenar las capas de abajo arriba.
+- Hacer de núcleo en tiempo real suave: llegan peticiones de aplicaciones; hay que encaminarlas por llamada al sistema, rechazar accesos directos al hardware en modo usuario y atender interrupciones antes de que caduquen.
+- Clasificar sistemas operativos (monousuario/multiusuario, monotarea/multitarea, CLI/GUI…).
+- **Corrección:** orden exacto, % de peticiones bien encaminadas, interrupciones perdidas.
 
-| Coche | Precio | Vel. máx | Aceleración | Agarre | Carácter |
-|---|---|---|---|---|---|
-| Escarabajo | 0 (inicial) | media | media | alto | Fácil y perdona |
-| Buggy | 1500 | baja | alta | medio | Muy bueno en tierra y barro (`base_offroad` 0.6: anula el 60 % de la penalización de superficie) |
-| Deportivo | 4000 | alta | media | bajo | Rápido pero derrapa |
+### M3. La caja fuerte binaria (tema 3)
+- Cerrojos encadenados: 8 interruptores con la chuleta 128-64-32-16-8-4-2-1 (leer y escribir binario), binario↔hexadecimal agrupando de 4 en 4 desde la derecha, suma binaria con acarreo, mensaje en ASCII.
+- Remate: cuánto muestra el sistema de un disco de «1 TB» y cuánto tarda una descarga (ojo bits/bytes).
+- **Corrección:** respuesta exacta por cerrojo; el juego hace la «comprobación de vuelta» a la vista. Cuentan intentos y pistas.
 
-## Mejoras
+### M4. La sala del planificador (tema 4) — primera en implementarse
+- Calentamiento: mover un proceso por el diagrama de estados eligiendo la transición correcta para cada situación.
+- Núcleo: tabla de procesos (llegada, ráfaga) generada por semilla. El alumno construye el **diagrama de Gantt** arrastrando bloques a una línea de tiempo para FIFO, Round Robin (quantum dado), SJF y SRT, y rellena tiempo de espera y de retorno de cada proceso y las medias.
+- **Corrección:** `scheduler.gd` simula el algoritmo y compara casilla a casilla; el fallo se señala con precisión («RR: en t=6 le tocaba a P3»). Los desempates siguen el criterio del tema 4 del cuaderno, documentados aquí cuando se implemente y cubiertos con tests.
 
-Cada coche tiene sus propios niveles de mejora, del 0 al 5. El coste crece: `coste_base × 1.6^nivel`.
+### M5. El almacén de RAM (tema 5)
+- Colocar procesos en particiones contiguas con primer, mejor y peor ajuste; identificar fragmentación interna y externa.
+- Traducir direcciones virtuales a físicas con una tabla de páginas (número de página + desplazamiento).
+- Memoria virtual: con la RAM llena, decidir qué página sale al disco y reconocer un fallo de página.
+- **Corrección:** huecos y direcciones calculados por `memory.gd`; respuesta exacta.
 
-| Mejora | Afecta a | +por nivel | Coste base |
-|---|---|---|---|
-| Motor | velocidad máxima | +6 % | 200 |
-| Turbo | aceleración | +8 % | 150 |
-| Neumáticos | agarre | +7 % | 150 |
-| Nitro | capacidad de nitro | +1 carga (base 1) | 250 |
+### M6. El archivo (tema 6)
+- Moverse por un árbol de directorios escribiendo rutas absolutas y relativas.
+- Elegir sistema de archivos para cada caso (pendrive entre Windows y Linux, disco de sistema, archivo > 4 GB…).
+- Fijar permisos `rwx` y su octal para cumplir un encargo («Ana puede leer y escribir, el grupo solo leer, el resto nada»).
+- Elegir nivel RAID según se pida velocidad, redundancia o ambas, y calcular la capacidad útil.
+- **Corrección:** usuarios simulados intentan leer, escribir y ejecutar; `permissions.gd` decide si pueden. Rutas y elecciones, por comparación directa.
 
-## Superficies
+### M7. El hipervisor (tema 7)
+- Encargo de un cliente: elegir tipo de hipervisor, repartir RAM y disco sin ahogar al anfitrión, y elegir modo de red (NAT, puente, red interna, solo anfitrión) para que la VM vea o no al anfitrión, a otras VM y a Internet.
+- Usar una instantánea para deshacer una avería provocada.
+- **Corrección:** `vm_network.gd` calcula la conectividad de la configuración y pasa las pruebas del encargo (VM→Internet, VM↔VM, anfitrión↔VM).
+- Es entrenamiento previo al taller; no sustituye la práctica real con VirtualBox.
 
-Se definen en `data/surfaces/*.tres`. Los multiplicadores se aplican a los stats del coche.
+## Evaluación
 
-| Superficie | Agarre | Vel. máx | Fricción | Dónde aparece |
-|---|---|---|---|---|
-| asfalto | 1.0 | 1.0 | 1.0 | Ciudad |
-| tierra | 0.75 | 0.95 | 1.1 | Oeste |
-| arena | 0.6 | 0.8 | 1.6 | Oeste, Playa |
-| barro | 0.5 | 0.7 | 2.0 | Jungla |
-| hierba | 0.7 | 0.85 | 1.4 | Jungla, bordes |
-| hielo | 0.25 | 1.0 | 0.8 | Ártico |
-| agua poco profunda | 0.6 | 0.6 | 2.5 | Jungla (vados) |
+- **Nota de misión (0–10):** 70 % aciertos de la fase en solitario, 20 % intentos (cada fallo resta), 10 % pistas no usadas. Pesos en un `.tres`, ajustables.
+- **Aprobado:** ≥ 5. Se puede repetir con otra semilla; se guarda la mejor nota y el número de intentos.
+- **De momento las notas son solo de práctica** (decisión de Guillem, 2026-11-27): el modo examen se queda en M10.
+- **Modo examen:** sin ejemplo resuelto ni pistas, con tiempo límite y una semilla que da el profesor en clase.
+- **Registro de cada intento:** alumno, misión, semilla, nota, duración, criterios RA y lista de fallos concretos.
+- **Entrega al profesor:** (b) siempre, un informe local exportable (JSON con código de comprobación HMAC) por si no hay red; (a) envío al servidor propio (`miniso.enguillem.es`) mediante `Online`, visible en el panel de administración (M11).
 
-## Temas y circuitos
+## Qué valida el profesor jugando
 
-| Tema | Superficies | Obstáculos / elementos | Pistas v1 |
-|---|---|---|---|
-| **Oeste** | tierra, arena | barriles que se mueven, vías de tren con un tren que cruza cada X s, cactus (pared), saltos en rampa | 2 |
-| **Jungla** | barro, hierba, agua | troncos caídos, vados de río, puente estrecho, lianas (decoración) | 2 |
-| Ártico | hielo, nieve | bloques de hielo, curvas cerradas sobre hielo | Opcional |
-| Mesa de billar (homenaje) | tapete = asfalto con agarre alto | bolas físicas que empujan, troneras = caída y reaparición | Opcional |
+Lo que solo se juzga jugando lo valida Guillem. Al acabar cada hito se deja una lista corta de qué probar:
 
-## Cámara
-
-- Sigue al jugador con suavizado (`position_smoothing`) y un pequeño adelanto en la dirección de la velocidad.
-- Zoom dinámico: se aleja un poco a alta velocidad.
-- Sin rotación: el mundo no gira, el coche sí.
-
-## Controles
-
-| Acción | Teclado | Mando | Táctil (M7) |
-|---|---|---|---|
-| Acelerar | ↑ / W | RT / A | botón derecho |
-| Frenar / marcha atrás | ↓ / S | LT / B | botón derecho inferior |
-| Girar | ← → / A D | stick izq. | flechas a la izquierda |
-| Nitro | Espacio | X | botón |
-| Reaparecer | R | Y | — |
-| Pausa | Esc | Start | botón ⏸ |
-
-## Fuera de alcance (v1)
-
-Editor de pistas, armas o power-ups de combate, físicas 3D.
-
-## Arte y audio
-
-- Prototipo: formas simples (`Polygon2D`) y colores planos.
-- Después: packs CC0 (por ejemplo, Kenney *Racing Pack*), descargados por el humano a `assets/`.
-- Audio: motor con el pitch ligado a la velocidad, derrape, choque, nitro, cuenta atrás y una música por tema.
+- ¿Se entiende qué hay que hacer sin leer instrucciones largas?
+- ¿El arrastre es cómodo con ratón y en pantalla táctil?
+- ¿La dificultad y la duración encajan en una sesión de clase (15–20 min por misión)?
+- ¿Los mensajes de error ayudan a un alumno de 1.º de grado medio?

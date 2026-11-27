@@ -9,7 +9,7 @@ Godot 4.7.x, GDScript con tipado estático, GUT 9.x, vista 2D, renderizador de c
 | `scripts/online_client.gd` (`OnlineClient`), `autoload/online.gd` | **Genérico**: cuenta por HTTP y salas por WebSocket |
 | `autoload/events.gd`, `music.gd`, `save_system.gd`, `game_state.gd` | Genéricos con matices: `GameState` guarda dinero, coches, mejoras y pistas (de carreras); `SaveSystem` es genérico (versión, escritura atómica, tolerante a corrupción) |
 | `scenes/ui/online_login`, `online_lobby`, `options_panel`, `main_menu` | **Genéricos**; `online_lobby` arranca `online_race.tscn` (cambiar a la escena de partida del juego) y `main_menu` enlaza el garaje y la selección de pista |
-| `scenes/ui/pause_menu`, `race_sounds`, `hud`, `results`, `follow_camera` | Reutilizables con cambios menores |
+| `scenes/race/pause_menu`, `race_sounds`, `hud`, `results`, `follow_camera` | Reutilizables con cambios menores |
 | `tools/check.sh`, `load_all.gd`, `export_linux.sh`, `export_windows.sh`, `export_presets.cfg`, `online_smoke.gd`, `online_demo.gd` | **Genéricos** (ver abajo) |
 | `tests/fake_online.gd`, `test_online_client.gd`, `test_online_ui.gd`, `test_menus.gd`, `test_save_system.gd`, `test_audio.gd` | Genéricos |
 | `scenes/car/*`, `scenes/tracks/*`, `scenes/obstacles/*`, `scenes/race/race.gd`, `online_race.gd`, `scripts/` de coches (stats, IA, vueltas, economía…), `tools/gen_*`, `track_builder.gd` | **Específicos de carreras** |

@@ -1,5 +1,4 @@
 # Créditos
 
-- **Racing Pack** de [Kenney](https://kenney.nl/assets/racing-pack), licencia CC0 (dominio público). Está en `assets/kenney_racing/` con su `License.txt`. De él salen los coches (`assets/cars/`, reducidos con `tools/prepare_art.gd`), el barril (`assets/objects/`) y la textura de los tiles de suelo (`tools/gen_tilesets.gd`).
-
-- **Audio**: efectos y música generados con el estudio de IA local del autor (Stable Audio 3 para los efectos, ACE-Step 1.5 para las canciones). Están en `assets/audio/`.
+- **Arte:** se usarán packs CC0 de [Kenney](https://kenney.nl/assets) (dominio público). Cada pack irá en `assets/kenney_<pack>/` con su `License.txt` y se anotará aquí.
+- **Audio**: música del menú y efectos (`beep`, `go`, `finish`) heredados de Mini Bólidos, generados con el estudio de IA local del autor (Stable Audio 3 para los efectos, ACE-Step 1.5 para las canciones). Están en `assets/audio/`.

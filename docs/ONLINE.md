@@ -1,5 +1,7 @@
 # Modo online
 
+> **Heredado de Mini Bólidos.** Cuentas, correo, sesiones y administración valen tal cual. Lo de carreras (salas de 5, checkpoints, netcode) no aplica a Mini SO: en M11 este documento se reescribe para el envío de notas de misión al servidor y su vista en el panel de administración.
+
 Objetivo: que el alumnado juegue carreras entre sí en un servidor propio, con cuentas, y que el profesor administre y vea quién está conectado.
 
 ## Decisiones
