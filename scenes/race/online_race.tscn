@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/race/online_race.gd" id="1"]
+[ext_resource type="Resource" path="res://data/cars/beetle.tres" id="3"]
+[ext_resource type="Script" path="res://scenes/race/follow_camera.gd" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/race/hud.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/race/results.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/race/pause_menu.tscn" id="11"]
+[ext_resource type="PackedScene" path="res://scenes/race/race_sounds.tscn" id="12"]
+
+[node name="OnlineRace" type="Node"]
+script = ExtResource("1")
+car_data = ExtResource("3")
+
+[node name="Cars" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("4")
+
+[node name="HUD" parent="." instance=ExtResource("5")]
+
+[node name="Results" parent="." instance=ExtResource("6")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("11")]
+
+[node name="Sounds" parent="." instance=ExtResource("12")]

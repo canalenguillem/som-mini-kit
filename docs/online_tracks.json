@@ -1,0 +1,34 @@
+{
+	"order": [
+		"west_01",
+		"west_02",
+		"jungle_01",
+		"jungle_02"
+	],
+	"tracks": {
+		"jungle_01": {
+			"checkpoints": 28,
+			"display_name": "Río Perdido",
+			"laps": 3,
+			"length_px": 11094.5
+		},
+		"jungle_02": {
+			"checkpoints": 26,
+			"display_name": "Puente de Lianas",
+			"laps": 3,
+			"length_px": 10331.3
+		},
+		"west_01": {
+			"checkpoints": 27,
+			"display_name": "Cañón del Coyote",
+			"laps": 3,
+			"length_px": 10637.6
+		},
+		"west_02": {
+			"checkpoints": 23,
+			"display_name": "Paso del Ferrocarril",
+			"laps": 3,
+			"length_px": 9083.0
+		}
+	}
+}

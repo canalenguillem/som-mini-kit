@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RivalData" format=3]
+
+[ext_resource type="Script" path="res://scripts/rival_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/cars/rayo.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+sprite = ExtResource("2")
+id = "rayo"
+display_name = "Rayo"
+color = Color(0.2, 0.5, 0.95, 1)
+lane_offset = -0.3
+skill = 1.05
+mistakes = 0.05
+nitro_eagerness = 0.8

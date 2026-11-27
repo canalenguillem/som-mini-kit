@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChampionshipData" format=3]
+
+[ext_resource type="Script" path="res://scripts/championship_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/track_data.gd" id="2"]
+[ext_resource type="Resource" path="res://data/tracks/west_01.tres" id="3"]
+[ext_resource type="Resource" path="res://data/tracks/west_02.tres" id="4"]
+[ext_resource type="Resource" path="res://data/tracks/jungle_01.tres" id="5"]
+[ext_resource type="Resource" path="res://data/tracks/jungle_02.tres" id="6"]
+
+[resource]
+script = ExtResource("1")
+id = "copa_salvaje"
+display_name = "Copa Salvaje"
+tracks = Array[ExtResource("2")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6")])
+reward_mult = 1.0

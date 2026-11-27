@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RivalData" format=3]
+
+[ext_resource type="Script" path="res://scripts/rival_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/cars/bruto.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+sprite = ExtResource("2")
+id = "bruto"
+display_name = "Bruto"
+color = Color(0.2, 0.7, 0.3, 1)
+lane_offset = 0.0
+skill = 0.95
+mistakes = 0.15
+nitro_eagerness = 0.5

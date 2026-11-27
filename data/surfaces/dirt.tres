@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SurfaceData" format=3]
+
+[ext_resource type="Script" path="res://scripts/surface_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "dirt"
+grip_mult = 0.75
+speed_mult = 0.95
+drag_mult = 1.1
+particles_color = Color(0.65, 0.45, 0.25, 1)
