@@ -2,22 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/missions/m4_scheduler/arcade_room.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/missions/m4_scheduler/gantt_grid.gd" id="2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_machine"]
-content_margin_left = 12.0
-content_margin_top = 8.0
-content_margin_right = 12.0
-content_margin_bottom = 8.0
-bg_color = Color(0.2, 0.1, 0.3, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.95, 0.3, 0.7, 1)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Script" path="res://scenes/missions/m4_scheduler/arcade_hall.gd" id="3"]
 
 [node name="ArcadeRoom" type="Control"]
 layout_mode = 3
@@ -43,99 +28,11 @@ auto_translate_mode = 2
 theme_override_font_sizes/font_size = 20
 autowrap_mode = 3
 
-[node name="Stage" type="HBoxContainer" parent="Box"]
+[node name="Hall" type="Control" parent="Box"]
+custom_minimum_size = Vector2(0, 230)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 18
-
-[node name="Entrance" type="VBoxContainer" parent="Box/Stage"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Box/Stage/Entrance"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
-theme_override_font_sizes/font_size = 16
-text = "ARCADE_ENTRANCE"
-
-[node name="List" type="VBoxContainer" parent="Box/Stage/Entrance"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Queue" type="VBoxContainer" parent="Box/Stage"]
-custom_minimum_size = Vector2(170, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Box/Stage/Queue"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.75, 0.2, 1)
-theme_override_font_sizes/font_size = 16
-text = "GRID_QUEUE"
-
-[node name="List" type="VBoxContainer" parent="Box/Stage/Queue"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Machine" type="PanelContainer" parent="Box/Stage"]
-custom_minimum_size = Vector2(220, 0)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_machine")
-
-[node name="Box" type="VBoxContainer" parent="Box/Stage/Machine"]
-layout_mode = 2
-theme_override_constants/separation = 6
-
-[node name="Title" type="Label" parent="Box/Stage/Machine/Box"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.95, 0.3, 0.7, 1)
-theme_override_font_sizes/font_size = 18
-text = "ARCADE_MACHINE"
-horizontal_alignment = 1
-
-[node name="Clock" type="Label" parent="Box/Stage/Machine/Box"]
-layout_mode = 2
-auto_translate_mode = 2
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
-
-[node name="Slot" type="VBoxContainer" parent="Box/Stage/Machine/Box"]
-custom_minimum_size = Vector2(0, 58)
-layout_mode = 2
-
-[node name="Quantum" type="Label" parent="Box/Stage/Machine/Box"]
-layout_mode = 2
-auto_translate_mode = 2
-theme_override_font_sizes/font_size = 15
-horizontal_alignment = 1
-
-[node name="Snack" type="VBoxContainer" parent="Box/Stage"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Box/Stage/Snack"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.8, 0.65, 0.3, 1)
-theme_override_font_sizes/font_size = 16
-text = "ARCADE_SNACK"
-
-[node name="List" type="VBoxContainer" parent="Box/Stage/Snack"]
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="Done" type="VBoxContainer" parent="Box/Stage"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Box/Stage/Done"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.5, 0.85, 0.5, 1)
-theme_override_font_sizes/font_size = 16
-text = "ARCADE_DONE"
-
-[node name="List" type="VBoxContainer" parent="Box/Stage/Done"]
-layout_mode = 2
-theme_override_constants/separation = 4
+script = ExtResource("3")
 
 [node name="Table" type="GridContainer" parent="Box"]
 visible = false

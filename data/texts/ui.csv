@@ -184,3 +184,6 @@ ARCADE_HINT_FIFO,"Mira la cua: en FIFO entra sempre el primer, el que va arribar
 ARCADE_HINT_RR,"En Round Robin entra el primer de la cua. Qui esgota les seves partides va al final, darrere dels que acaben d'arribar.","En Round Robin entra el primero de la cola. Quien agota sus partidas va al final, detrás de los que acaban de llegar.","In Round Robin the first in the queue goes in. Whoever uses up their turn goes to the end, behind those who just arrived."
 ARCADE_HINT_SJF,Compta les fitxes: entra el que en té menys. I el que juga no s'interromp.,Cuenta las fichas: entra el que tiene menos. Y el que está jugando no se interrumpe.,Count the tokens: the one with the fewest goes in. And whoever is playing isn't interrupted.
 ARCADE_HINT_SRT,"Compara fitxes: si el que arriba en té estrictament menys que les que li queden al que juga, li pren la màquina; si no, continua el mateix.","Compara fichas: si el que llega tiene estrictamente menos que las que le quedan al que juega, le quita la máquina; si no, sigue el mismo.","Compare tokens: if the newcomer has strictly fewer than the player has left, it takes the machine; otherwise the same one carries on."
+ARCADE_SIGN,★ SALA RECREATIVA TORRE-7 ★,★ SALA RECREATIVA TORRE-7 ★,★ TORRE-7 ARCADE ★
+ARCADE_WHO,Qui juga?,¿Quién juega?,Who plays?
+ARCADE_FREE,Lliure,Libre,Free

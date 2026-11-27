@@ -25,17 +25,10 @@ var _resolved: Dictionary = {}  ## ciclos de decisión ya resueltos (se puede se
 var _run_id: int = 0  ## invalida los temporizadores de una fase anterior
 var _inputs: Array[Dictionary] = []
 var _mean_wait: LineEdit
+var _first_draw: bool = true
 
 @onready var _task: Label = $Box/Task
-@onready var _stage: HBoxContainer = $Box/Stage
-@onready var _entrance: VBoxContainer = $Box/Stage/Entrance/List
-@onready var _queue: VBoxContainer = $Box/Stage/Queue/List
-@onready var _machine_slot: VBoxContainer = $Box/Stage/Machine/Box/Slot
-@onready var _clock: Label = $Box/Stage/Machine/Box/Clock
-@onready var _quantum: Label = $Box/Stage/Machine/Box/Quantum
-@onready var _snack_col: VBoxContainer = $Box/Stage/Snack
-@onready var _snack: VBoxContainer = $Box/Stage/Snack/List
-@onready var _done: VBoxContainer = $Box/Stage/Done/List
+@onready var _hall: ArcadeHall = $Box/Hall
 @onready var _grid: GanttGrid = $Box/Grid
 @onready var _table: GridContainer = $Box/Table
 
@@ -57,8 +50,13 @@ func _build() -> void:
 	waiting_decision = false
 	var key: String = "GANTT_TASK_" + Scheduler.ALGORITHM_NAMES[algorithm] + ("_IO" if with_io else "")
 	_task.text = tr(key).format({"q": exercise["quantum"]})
-	_snack_col.visible = with_io
-	_quantum.visible = algorithm == Scheduler.Algorithm.RR
+	var labels: PackedStringArray = []
+	for i: int in solution.names.size():
+		labels.append(_label_of(i))
+	_hall.setup(labels)
+	if not _hall.player_pressed.is_connected(pick):
+		_hall.player_pressed.connect(pick)
+	_first_draw = true
 	var bursts: Array = []
 	var arrivals: PackedInt32Array = []
 	for p: Dictionary in exercise["processes"]:
@@ -72,7 +70,7 @@ func _build() -> void:
 	_grid.editable = false
 	_grid.set_grid(solution.timeline, true)
 	_grid.revealed = 0
-	_stage.visible = true
+	_hall.visible = true
 	_table.visible = false
 	_build_table()
 	check_enabled.emit(phase == Phase.EXAMPLE)
@@ -204,7 +202,8 @@ func _finish_round() -> void:
 	waiting_decision = false
 	_grid.revealed = -1
 	_grid.queue_redraw()
-	_stage.visible = false
+	_hall.visible = false
+	_hall.machine_busy = false
 	_table.visible = true
 	if phase == Phase.EXAMPLE:
 		var ans: Dictionary = ArcadeRound.solution_answer(exercise, _decimal())
@@ -220,47 +219,60 @@ func _finish_round() -> void:
 
 # --- Dibujo del estado ---
 
-## Estado de la sala al empezar el ciclo `cycle`. Si `deciding`, la máquina se ve libre (o con el que
-## juega, en SRT) y los candidatos se pueden tocar.
+## Estado del salón al empezar el ciclo `cycle`. Si `deciding`, la máquina se ve libre (o con el que
+## juega, en SRT, mientras se decide si lo echan) y los candidatos se pueden tocar.
 func _draw_state(deciding: bool) -> void:
-	_clock.text = tr("ARCADE_CYCLE").format({"cycle": cycle})
-	for box: VBoxContainer in [_entrance, _queue, _machine_slot, _snack, _done]:
-		for child: Node in box.get_children():
-			box.remove_child(child)
-			child.queue_free()
 	var c: int = cycle
 	var runner: int = solution.timeline[c - 1] if c <= solution.cycles() else -1
 	var candidates: Array[int] = []
 	if deciding:
 		candidates = solution.candidates(c)
 	var keep_runner: bool = deciding and solution.decided[c - 1] == 2
-	var queue_order: Array[int] = []
 	var victim: int = solution.victims[c - 1] if deciding else -1
+	var queue_order: Array[int] = []
 	if deciding and not keep_runner:
-		# Mientras se decide, el que entrará sigue en la cola, en su sitio (orden de llegada a la cola)
 		queue_order = _queue_before_choice(c)
 		if victim >= 0:
-			# SRT: el que jugaba sigue en la máquina mientras se decide si lo expulsa el recién llegado
 			queue_order.erase(victim)
 	else:
 		for i: int in solution.queues[c - 1]:
 			queue_order.append(i)
+	var at_machine: int = -1
+	if (not deciding or keep_runner) and runner >= 0:
+		at_machine = runner
+	if victim >= 0:
+		at_machine = victim
+	var state: Array = []
+	var counters: Dictionary = {"entrance": 0, "snack": 0, "done": 0}
 	for i: int in solution.names.size():
-		var card: Button = _card(i, c, candidates.has(i))
+		var zone: String = "queue"
+		var slot: int = queue_order.find(i)
 		if solution.arrivals[i] > c:
-			_entrance.add_child(card)
+			zone = "entrance"
 		elif solution.finishes[i] > 0 and solution.finishes[i] < c:
-			_done.add_child(card)
+			zone = "done"
 		elif solution.io_cycles[i].has(c):
-			_snack.add_child(card)
-		elif (i == runner and (not deciding or keep_runner)) or i == victim:
-			_machine_slot.add_child(card)
-	for i: int in queue_order:
-		_queue.add_child(_card(i, c, candidates.has(i)))
-	if algorithm == Scheduler.Algorithm.RR and runner >= 0 and not deciding:
-		_quantum.text = tr("ARCADE_QUANTUM").format({"used": _turn_used(c), "q": solution.quantum})
-	else:
-		_quantum.text = ""
+			zone = "snack"
+		elif i == at_machine:
+			zone = "machine"
+			slot = 0
+		if counters.has(zone):
+			slot = int(counters[zone])
+			counters[zone] = slot + 1
+		state.append({"zone": zone, "slot": maxi(slot, 0), "tokens": maxi(_tokens_left(i, c), 0),
+				"patience": clampf(1.0 - _waited(i, c) / PATIENCE_CYCLES, 0.0, 1.0),
+				"tappable": candidates.has(i)})
+	var lines: PackedStringArray = [tr("ARCADE_CYCLE").format({"cycle": c})]
+	if deciding:
+		lines.append(tr("ARCADE_WHO"))
+	elif at_machine < 0:
+		lines.append(tr("ARCADE_FREE"))
+	elif algorithm == Scheduler.Algorithm.RR:
+		lines.append(tr("ARCADE_QUANTUM").format({"used": _turn_used(c), "q": solution.quantum}))
+	_hall.screen_lines = lines
+	_hall.machine_busy = at_machine >= 0 and not deciding
+	_hall.show_state(state, _first_draw)
+	_first_draw = false
 
 
 ## Cola tal como estaba antes de elegir: el elegido estaba en ella. Se respeta el orden del libro
@@ -310,41 +322,6 @@ func _waited(i: int, c: int) -> int:
 
 func _label_of(i: int) -> String:
 	return "%s (%s)" % [ArcadeRound.PLAYER_NAMES[i], solution.names[i]]
-
-
-func _card(i: int, c: int, tappable: bool) -> Button:
-	var b := Button.new()
-	b.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
-	b.custom_minimum_size = Vector2(150, 54)
-	b.add_theme_font_size_override("font_size", 16)
-	var tokens: int = maxi(_tokens_left(i, c), 0)
-	var line2: String = "●".repeat(tokens) if tokens > 0 else "✓"
-	if solution.arrivals[i] > c:
-		line2 = tr("ARCADE_ARRIVES").format({"cycle": solution.arrivals[i]})
-	b.text = "%s\n%s" % [_label_of(i), line2]
-	b.disabled = not tappable
-	b.add_theme_color_override("font_disabled_color", Color(0.92, 0.94, 0.97))
-	if tappable:
-		b.pressed.connect(pick.bind(i))
-		b.add_theme_color_override("font_color", Color(0.95, 0.75, 0.2))
-		var glow := StyleBoxFlat.new()
-		glow.bg_color = Color(0.25, 0.22, 0.12)
-		glow.set_border_width_all(2)
-		glow.border_color = Color(0.95, 0.75, 0.2)
-		glow.set_corner_radius_all(6)
-		b.add_theme_stylebox_override("normal", glow)
-	var patience := ProgressBar.new()
-	patience.show_percentage = false
-	patience.custom_minimum_size = Vector2(0, 5)
-	patience.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	patience.offset_top = -6
-	patience.max_value = 1.0
-	patience.value = clampf(1.0 - _waited(i, c) / PATIENCE_CYCLES, 0.0, 1.0)
-	patience.modulate = Color(1.0 - patience.value, 0.4 + 0.5 * patience.value, 0.3)
-	patience.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	patience.visible = solution.arrivals[i] <= c and (solution.finishes[i] == 0 or solution.finishes[i] >= c)
-	b.add_child(patience)
-	return b
 
 
 # --- Tabla del final ---
