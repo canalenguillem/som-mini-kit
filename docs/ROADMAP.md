@@ -1,6 +1,6 @@
 # Roadmap — Mini SO
 
-Hito actual: **M3 — Hub y progreso** (mapa validado por Guillem; misión 4 rehecha con arrastres, pendiente de probar). La prueba de M2 con alumnos sigue pendiente: Guillem decidió seguir antes (2026-11-27).
+Hito actual: **M4 — Misión 1, el taller (tema 1)**. M2 y M3 validados por Guillem con ratón (2026-11-27); falta probar en táctil y con alumnos. La prueba de M2 con alumnos sigue pendiente: Guillem decidió seguir antes (2026-11-27).
 
 Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./tools/check.sh` esté en verde y Guillem haya validado lo que hay que probar jugando. Cada hito entrega ya sus textos en catalán, castellano e inglés.
 
@@ -59,7 +59,8 @@ Regla: trabajar solo en el hito actual; no empezar el siguiente hasta que `./too
 - [x] Panel de zona con sus salas, mejor nota, intentos y botón Jugar
 - [x] **Guillem:** el mapa se entiende
 - [x] Misión 4 rehecha tras la prueba: el alumno arrastra a cada jugador (cada arrastre = transición de estado); el calentamiento es el mismo salón sin elegir; se quita el test de estados
-- [ ] **Guillem:** probar los arrastres con ratón y en táctil
+- [x] **Guillem:** arrastres validados con ratón
+- [ ] Probar en pantalla táctil y con alumnos
 
 ## M4 a M9 — Resto de misiones (orden del cuaderno)
 - [ ] M4: misión 1, el taller (tema 1)
